@@ -1,0 +1,4 @@
+/**** REMEMBER ****/
+
+req.query : /user?id=..
+red.params : /user/:id
