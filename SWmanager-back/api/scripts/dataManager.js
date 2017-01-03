@@ -11,7 +11,7 @@ var players = [];
 var planets = [];
 
 // data utils
-var galaxyPop = [{"0-100" : 0}];
+var galaxyPop = {};
 
 // original data
 var dataBase = {};
@@ -49,7 +49,7 @@ function collectGalaxy(db, callbacks) {
         if (!err && rows.length > 0) {
             //take galaxy 18
             var galaxy;
-            for (var i = 0; i < rows.length; ++i){
+            for (var i = 0; i < rows.length; ++i) {
                 if (rows[i].name == 'galaxy_data_18') {
                     galaxy = rows[i];
                 }
@@ -79,7 +79,7 @@ function collectScore(db, callbacks) {
         if (!err && rows.length > 0) {
             //take galaxy 18
             var galaxy;
-            for (var i = 0; i < rows.length; ++i){
+            for (var i = 0; i < rows.length; ++i) {
                 if (rows[i].name == 'fleet_points_uni_18') {
                     galaxy = rows[i];
                 }
@@ -162,16 +162,67 @@ function addInactifStatusToPlayer() {
     }
 }
 
+/*** calculation ***/
+
+function calculationGalaxyPop() {
+
+    // create galaxyPop
+    for (var i = 1; i != 7; ++i) {
+        galaxyPop['galaxy_' + i] = {
+            g: i,
+            total: 0,
+            percent: 0,
+            systems: []
+        };
+        var min = 0;
+        var max = 100;
+
+        for (var i2 = 0; i2 < 4; ++i2) {
+            min += 100;
+            max += 100;
+            max = (max == 500 ? 499 : max);
+            galaxyPop['galaxy_' + i].systems.push({
+                min: min,
+                max: max,
+                total: 0,
+                percent: 0
+            });
+        }
+    }
+
+    // parse planets
+    for (var i = 0; i < planets.length; ++i) {
+        galaxyPop['galaxy_' + planets[i].position.g].total += 1;
+        for (var i2 = 0; i2 < galaxyPop['galaxy_' + planets[i].position.g].systems.length; ++i2) {
+            if (planets[i].position.s >= galaxyPop['galaxy_' + planets[i].position.g].systems[i2].min
+                && planets[i].position.s < galaxyPop['galaxy_' + planets[i].position.g].systems[i2].max) {
+                galaxyPop['galaxy_' + planets[i].position.g].systems[i2].total += 1;
+            }
+        }
+    }
+
+    // add percent
+    for (var key in galaxyPop) {
+        galaxyPop[key].percent = (galaxyPop[key].total * 100) / planets.length;
+        for (var i = 0; i < galaxyPop[key].systems.length; ++i) {
+            galaxyPop[key].systems[i].percent = (galaxyPop[key].systems[i].total * 100) / galaxyPop[key].total;
+        }
+    }
+}
+
 /*** Manager ***/
 function parseCollectedData(db, callbacks) {
     createPlayers();
     createPlanets();
     addScoreToPlayer();
     addInactifStatusToPlayer();
+    Tools.log("[server][DONE] parse Data", Tools.colors.FG_MAGENTA);
     launchCallback(db, callbacks);
 }
 
-function calculUtilsData(db, callbacks) {
+function calculationUtilsData(db, callbacks) {
+    calculationGalaxyPop();
+    Tools.log("[server][DONE] calculation with Data", Tools.colors.FG_MAGENTA);
     launchCallback(db, callbacks);
 }
 
@@ -179,8 +230,8 @@ exports.parseData = function () {
     var file = "../data/data.db";
     var exists = fs.existsSync(file);
     var db = new sqlite3.Database(file);
-    console.log(exists);
+    Tools.log("[server] DataBase available", Tools.colors.FG_CYAN);
     if (exists) {
-        collectGalaxy(db, [collectInactif, collectScore, parseCollectedData, calculUtilsData]);
+        collectGalaxy(db, [collectInactif, collectScore, parseCollectedData, calculationUtilsData]);
     }
 };

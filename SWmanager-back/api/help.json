@@ -1,0 +1,77 @@
+/** PLAYER **/
+{
+  "player": {
+    "pseudo": "",
+    "planets": [
+      {
+        "g": 1,
+        "s": 1,
+        "p": 1
+      }
+    ],
+    "moons": [
+      {
+        "g": 1,
+        "s": 1,
+        "p": 1
+      }
+    ],
+    "score": {
+      "total": 0,
+      "research": 0,
+      "building": 0,
+      "defense": 0,
+      "fleet": 0
+    },
+    "inactif": false
+  },
+  /** PLANET **/
+
+  "planet": {
+    "position": {
+      "g": 1,
+      "s": 1,
+      "p": 1
+    },
+    "player": ""
+  },
+
+  /** GALAXY POP **/
+
+  "galaxyPop": {
+    "galaxy_1": {
+      "g": 1,
+      "total": 54,
+      "percent": 9,
+      "systems": [
+        {
+          "min": 100,
+          "max": 200,
+          "total": 10,
+          "percent": 18
+        },
+        {
+          "min": 200,
+          "max": 300,
+          "total": 19,
+          "percent": 35
+        },
+        {
+          "min": 300,
+          "max": 400,
+          "total": 5,
+          "percent": 9
+        },
+        {
+          "min": 400,
+          "max": 499,
+          "total": 10,
+          "percent": 18
+        }
+      ]
+    },
+    "galaxy_2": {},
+    // to
+    "galaxy_6": {}
+  }
+}

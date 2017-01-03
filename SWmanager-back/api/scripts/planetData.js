@@ -2,18 +2,17 @@
  * Created by kevin on 03/01/2017.
  */
 
-
 var dataManager = require('./dataManager');
 
-exports.findByLogin = function(login, callback) {
-    var players = dataManager.getPlayers();
+exports.findByPos = function(login, callback) {
+    var planets = dataManager.getPlanets();
     var result = null;
     var err = true;
 
-    if (players) {
-        for (var i = 0; i < players.length; ++i) {
-            if (players[i].login == login) {
-                result = players[i];
+    if (planets) {
+        for (var i = 0; i < planets.length; ++i) {
+            if (planets[i].login == login) {
+                result = planets[i];
                 err = null;
                 break;
             }
@@ -23,7 +22,7 @@ exports.findByLogin = function(login, callback) {
 };
 
 exports.find = function(callback) {
-    var result = dataManager.getPlayers();
+    var result = dataManager.getPlanets();
     var err = null;
 
     if (!result|| result.length == 0) {

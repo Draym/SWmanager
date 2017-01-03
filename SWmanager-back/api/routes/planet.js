@@ -1,27 +1,31 @@
+/**
+ * Created by kevin on 03/01/2017.
+ */
 var express = require('express');
 var router = express.Router();
 
-var Player = require('../scripts/playerData');
+var Planet = require('../scripts/planetData');
+
 
 router.get('/', function (req, res, next) {
     console.log(req.query);
-    Player.findByLogin(req.query.login, function (err, player) {
+    Planet.findByPos(req.query.pos, function (err, planet) {
         if (err) {
             res.send({success: false, message: 'Internal error', errcode: 7});
         }
         else {
-            res.send({success: true, 'player': player});
+            res.send({success: true, 'planet': planet});
         }
     })
 });
 
 router.get('/all', function (req, res, next) {
-    Player.find(function (err, players) {
+    Planet.find(function (err, planets) {
         if (err) {
             res.send({success: false, message: 'Internal error', errcode: 7});
         }
         else {
-            res.send({success: true, 'players': players});
+            res.send({success: true, 'players': planets});
         }
     })
 });
