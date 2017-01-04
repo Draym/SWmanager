@@ -3,16 +3,27 @@
  */
 /**
  * @ngdoc function
- * @name SWmanagerApp.controller:ColonialWidgetCtrl
+ * @name SWmanagerApp.controller:ColonizeWidgetCtrl
  * @description
- * # ColonialWidgetCtrl
+ * # ColonizeWidgetCtrl
  * Controller of the SWmanagerApp
  */
 angular.module('SWmanagerApp')
-  .controller('ColonialWidgetCtrl', function ($scope, $timeout, $uibModal, toaster, SubmitResult, RequestAPI, User, CloneUtilsCustom) {
+  .controller('ColonizeWidgetCtrl', function ($scope, $timeout, $uibModal, toaster, SubmitResult, RequestAPI, User, CloneUtilsCustom) {
 
+    $scope.isBusy = false;
+    $scope.resultAvailable = false;
     $scope.mode = 0;
-    $scope.labelTitle = ["Galaxies", "Galaxy 1", "Galaxy 2", "Galaxy 3", "Galaxy 4", "Galaxy 5", "Galaxy 6"];
+    $scope.galaxyLabel = [
+      {id: 0, name: "Galaxies"},
+      {id: 1, name: "Galaxy 1"},
+      {id: 2, name: "Galaxy 2"},
+      {id: 3, name: "Galaxy 3"},
+      {id: 4, name: "Galaxy 4"},
+      {id: 5, name: "Galaxy 5"},
+      {id: 6, name: "Galaxy 6"}];
+    $scope.choice = {g: $scope.galaxyLabel[0], people: 'null', type: 'null', level: 'null', inactif: 'null'};
+
 
     /*** CONFIGURATION CHART ***/
     $scope.chartLabels = [];
@@ -47,12 +58,52 @@ angular.module('SWmanagerApp')
 
     /*** FUNCTIONS ***/
 
-    $scope.getChartGalaxy = function(g) {
+    $scope.openResultAvailable = function() {
+      $scope.resultAvailable = !$scope.resultAvailable;
+    };
+
+    $scope.openHelp = function () {
+      var modalInstance = $uibModal.open({
+        templateUrl: 'views/help/helpColonizeModal.html',
+        controller: 'HelpColonizeModalCtrl',
+        size: 'lg'
+      });
+    };
+
+    $scope.getChartGalaxy = function (g) {
       if (g > 0) {
         $scope.createDataChartByGalaxy(g);
       } else {
         $scope.createDataChart();
       }
+    };
+
+    $scope.isSearchFormValid = function () {
+      return $scope.choice.people != null && $scope.choice.people != 'null';
+    };
+
+    $scope.doResearch = function () {
+      $scope.isBusy = true;
+      console.log($scope.choice);
+      RequestAPI.GET("/colonize/findBest", SubmitResult.submitSuccess(function (response) {
+          $scope.researchPlanets = response.data.planets;
+          $scope.resultAvailable = true;
+          console.log($scope.researchPlanets);
+          $scope.isBusy = false;
+        }),
+        SubmitResult.submitFailure(function () {
+          $scope.isBusy = false;
+        }), {
+          g: $scope.choice.g.id,
+          people: $scope.choice.people,
+          type: $scope.choice.type,
+          inactif: $scope.choice.inactif,
+          level: $scope.choice.level,
+          scoreTotal: User.getPlayer().score.total,
+          scoreBuilding: User.getPlayer().score.building,
+          scoreFleet: User.getPlayer().score.fleet,
+          scoreDefense: User.getPlayer().score.defense
+        });
     };
 
     /*** CREATOR ***/
@@ -61,7 +112,6 @@ angular.module('SWmanagerApp')
       $scope.mode = g;
       $scope.chartData[0].length = 0;
       $scope.chartLabels.length = 0;
-      console.log("neeew")
       for (var key in $scope.galaxy) {
         if ($scope.galaxy[key].g == g) {
           for (var i = 0; i < $scope.galaxy[key].systems.length; ++i) {
@@ -96,15 +146,16 @@ angular.module('SWmanagerApp')
 
     /*** LOAD ***/
     $scope.loadPlayers = function () {
+      $scope.isBusy = true;
       RequestAPI.GET("/planet/getPop", SubmitResult.submitSuccess(function (response) {
           $scope.galaxy = response.data.pop;
-        console.log($scope.galaxy);
+          console.log($scope.galaxy);
           $scope.createDataChart();
           $scope.createDataPolar();
-          $scope.busy = false;
+          $scope.isBusy = false;
         }),
         SubmitResult.submitFailure(function () {
-          $scope.busy = false;
+          $scope.isBusy = false;
         }));
     };
 

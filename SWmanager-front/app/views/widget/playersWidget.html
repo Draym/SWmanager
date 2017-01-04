@@ -15,11 +15,9 @@
                    value="" data-ng-model="searchPlayer" placeholder="player">
           </div>
         </div>
-
         <div class="col-md-5">
           <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-default"
-                   data-ng-click="sortByScore()" disabled>
+            <label class="btn btn-default" disabled>
               <input type="radio" name="options" id="menu" autocomplete="off"> Sort by
             </label>
             <label class="btn btn-primary"
@@ -59,12 +57,6 @@
                   <label class="btn btn-primary active">
                     <input type="radio" name="options" id="current" autocomplete="off"> {{currentPage + 1}}
                   </label>
-                  <!--
-                  <button class="btn btn-info" data-ng-class="{'selected' : n + 1 == currentPage}"
-                          data-ng-repeat="n in range(currentPage, pagedItems.length) track by $index"
-                          data-ng-click="setPage(n)">
-                    <span data-ng-if="n >= 0">{{n + 1}}</span>
-                    <span data-ng-if="n < 0">...</span></button>-->
                   <label class="btn btn-primary active"
                          data-ng-class="{disabled: lastPage()}"
                          data-ng-click="nextPage()">

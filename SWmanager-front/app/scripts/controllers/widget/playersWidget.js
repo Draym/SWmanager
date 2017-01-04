@@ -11,6 +11,7 @@
 angular.module('SWmanagerApp')
   .controller('PlayersWidgetCtrl', function ($scope, $timeout, $uibModal, toaster, SubmitResult, RequestAPI, User, CloneUtilsCustom) {
 
+    $scope.isBusy = false;
     $scope.sortByPseudoASC = false;
     $scope.sortByPseudoDESC = false;
     $scope.players = [];
@@ -138,7 +139,7 @@ angular.module('SWmanagerApp')
       });
     };
 
-    $scope.openHelp = function (player) {
+    $scope.openHelp = function () {
       var modalInstance = $uibModal.open({
         templateUrl: 'views/help/helpPlayerModal.html',
         controller: 'HelpPlayerModalCtrl',
@@ -166,6 +167,7 @@ angular.module('SWmanagerApp')
 
     /*** LOAD ***/
     $scope.loadPlayers = function () {
+      $scope.isBusy = true;
       RequestAPI.GET("/player/all", SubmitResult.submitSuccess(function (response) {
           $scope.unparsedPlayers = response.data.players;
           $scope.unparsedPlayers.sort(compareScore);
@@ -173,10 +175,10 @@ angular.module('SWmanagerApp')
             $scope.unparsedPlayers[i].index = i;
           }
           $scope.parseUnparsedPlayers();
-          $scope.busy = false;
+          $scope.isBusy = false;
         }),
         SubmitResult.submitFailure(function () {
-          $scope.busy = false;
+          $scope.isBusy = false;
         }));
     };
 

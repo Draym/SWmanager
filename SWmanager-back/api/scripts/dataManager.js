@@ -128,7 +128,8 @@ function createPlayers() {
             planets: transforPlanetsPosition(dataBase.players[key][0]),
             moons: transforPlanetsPosition(dataBase.players[key][1]),
             score: {},
-            inactif: false
+            inactif: false,
+            type: ""
         });
     }
 }
@@ -153,6 +154,16 @@ function addScoreToPlayer() {
             players[i].score.building = parseFloat(dataBase.score.players[key]['4']);
             players[i].score.defense = parseFloat(dataBase.score.players[key]['5']);
             players[i].score.fleet = players[i].score.total - (players[i].score.research + players[i].score.building + players[i].score.defense);
+
+            if (players[i].score.building >= players[i].score.fleet
+                && players[i].score.building >= players[i].score.defense) {
+                players[i].type = "building";
+            } else if (players[i].score.fleet >= players[i].score.building
+            && players[i].score.fleet >= players[i].score.defense) {
+                players[i].type = "fleet";
+            } else {
+                players[i].type = 'defense';
+            }
         }
     }
 }

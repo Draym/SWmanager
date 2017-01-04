@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 
 var player = require('./routes/player');
 var planet = require('./routes/planet');
-var colonial = require('./routes/colonial');
+var colonize = require('./routes/colonize');
 var military = require('./routes/military');
 
 var dataManager = require('./scripts/dataManager');
@@ -41,7 +41,7 @@ app.use(function (req, res, next) {
 
 app.use('/player', player);
 app.use('/planet', planet);
-app.use('/colonial', colonial);
+app.use('/colonize', colonize);
 app.use('/military', military);
 
 // catch 404 and forward to error handler

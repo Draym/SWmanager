@@ -11,6 +11,7 @@
 angular.module('SWmanagerApp')
   .controller('PlanetsWidgetCtrl', function ($scope, $timeout, $uibModal, toaster, SubmitResult, RequestAPI, User, CloneUtilsCustom) {
 
+    $scope.isBusy = false;
     $scope.planets = [];
     $scope.itemsPerPage = 10;
     $scope.pagedItems = [];
@@ -153,7 +154,7 @@ angular.module('SWmanagerApp')
       });
     };
 
-    $scope.openHelp = function (player) {
+    $scope.openHelp = function () {
       var modalInstance = $uibModal.open({
         templateUrl: 'views/help/helpPlanetModal.html',
         controller: 'HelpPlanetModalCtrl',
@@ -163,6 +164,7 @@ angular.module('SWmanagerApp')
 
     /*** LOAD ***/
     $scope.loadPlanets = function () {
+      $scope.isBusy = true;
       RequestAPI.GET("/planet/all", SubmitResult.submitSuccess(function (response) {
           $scope.unparsedPlanets = response.data.planets;
           $scope.unparsedPlanets.sort(comparePosition);
@@ -170,10 +172,10 @@ angular.module('SWmanagerApp')
             $scope.unparsedPlanets[i].index = i;
           }
           $scope.parseUnparsedPlanets();
-          $scope.busy = false;
+          $scope.isBusy = false;
         }),
         SubmitResult.submitFailure(function () {
-          $scope.busy = false;
+          $scope.isBusy = false;
         }));
     };
 
