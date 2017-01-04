@@ -46,7 +46,6 @@ angular.module('SWmanagerApp')
       if (start < (end / 2)) {
         ret.push(-2);
       }
-      console.log(ret);
       return ret;
     };
 

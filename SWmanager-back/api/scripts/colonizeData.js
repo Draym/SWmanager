@@ -106,7 +106,6 @@ exports.findBest = function (requirements, callback) {
     var result = null;
     var err = true;
 
-    console.log(requirements, !requirements.type);
     if (galaxy && requirements.g && requirements.people != 'null') {
         if (requirements.g != 0) {
             var id = 'galaxy_' + requirements.g;
@@ -114,7 +113,6 @@ exports.findBest = function (requirements, callback) {
             galaxy = {};
             galaxy[id] = tmp;
         }
-        console.log(galaxy);
         if (requirements.type != 'null') {
             parseGalaxyByType(galaxy, requirements.type);
         }

@@ -84,7 +84,6 @@ angular.module('SWmanagerApp')
 
     $scope.doResearch = function () {
       $scope.isBusy = true;
-      console.log($scope.choice);
       RequestAPI.GET("/colonize/findBest", SubmitResult.submitSuccess(function (response) {
           $scope.researchPlanets = response.data.planets;
           $scope.resultAvailable = true;
@@ -149,7 +148,6 @@ angular.module('SWmanagerApp')
       $scope.isBusy = true;
       RequestAPI.GET("/planet/getPop", SubmitResult.submitSuccess(function (response) {
           $scope.galaxy = response.data.pop;
-          console.log($scope.galaxy);
           $scope.createDataChart();
           $scope.createDataPolar();
           $scope.isBusy = false;

@@ -17,7 +17,6 @@ angular.module('SWmanagerApp')
 
     $scope.doLogin = function () {
       $scope.isBusy = true;
-      console.log("DODODO LOGIN")
       RequestAPI.GET("/player",
         SubmitResult.submitSuccess(function (response) {
           User.connect(response.data.player);

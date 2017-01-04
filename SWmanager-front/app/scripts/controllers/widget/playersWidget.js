@@ -48,7 +48,6 @@ angular.module('SWmanagerApp')
       if (start < (end / 2)) {
         ret.push(-2);
       }
-      console.log(ret);
       return ret;
     };
 
@@ -113,13 +112,10 @@ angular.module('SWmanagerApp')
 
     $scope.sortParsedPlayers = function () {
       if ($scope.sortByPseudoASC) {
-        console.log("sortASC")
         $scope.players.sort(comparePseudoASC);
       } else if ($scope.sortByPseudoDESC) {
-        console.log("sortDESC")
         $scope.players.sort(comparePseudoDESC);
       } else {
-        console.log("sortSCORE")
         $scope.players.sort(compareScore);
       }
     };
