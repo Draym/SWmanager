@@ -1,0 +1,68 @@
+<div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Players
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body">
+      <div class="row">
+          <div class="form-inline" style="padding-left: 5px; margin-bottom: 10px">
+            <label for="name">Search: </label>
+            <input type="text" name="path" id="name" class="form-control"
+                   value="" data-ng-model="searchPlayer">
+          </div>
+      </div>
+      <div class="row">
+        <div class="table-responsive">
+          <table class="table table-hover" id="dataTables-example">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Pseudo</th>
+              <th>Score</th>
+            </tr>
+            </thead>
+            <tfoot>
+            <td colspan="6">
+              <div class="pagination pull-right">
+                <div class="btn-group" data-toggle="buttons">
+                  <label class="btn btn-primary active"
+                         data-ng-class="{disabled: firstPage()}"
+                         data-ng-click="prevPage()">
+                    <input type="radio" name="options" id="prev" autocomplete="off"> Prev
+                  </label>
+                  <label class="btn btn-primary active">
+                    <input type="radio" name="options" id="current" autocomplete="off"> {{currentPage + 1}}
+                  </label>
+                  <!--
+                  <button class="btn btn-info" data-ng-class="{'selected' : n + 1 == currentPage}"
+                          data-ng-repeat="n in range(currentPage, pagedItems.length) track by $index"
+                          data-ng-click="setPage(n)">
+                    <span data-ng-if="n >= 0">{{n + 1}}</span>
+                    <span data-ng-if="n < 0">...</span></button>-->
+                  <label class="btn btn-primary active"
+                         data-ng-class="{disabled: lastPage()}"
+                         data-ng-click="nextPage()">
+                    <input type="radio" name="options" id="next" autocomplete="off"> Next
+                  </label>
+                </div>
+              </div>
+            </td>
+            </tfoot>
+            <tbody>
+            <tr data-ng-repeat="player in pagedItems[currentPage] track by player.index"
+                data-ng-click="detailPlayer(player)">
+              <td>{{player.index + 1}}</td>
+              <td>{{player.pseudo}}</td>
+              <td>{{player.score.total}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /.table-responsive -->
+      </div>
+    </div>
+    <!-- /.panel-body -->
+  </div>
+  <!-- /.panel -->
+</div>

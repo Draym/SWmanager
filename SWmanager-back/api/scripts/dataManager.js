@@ -138,7 +138,7 @@ function createPlanets() {
     for (var key in dataBase.universe) {
         planets.push({
             position: transformPlanetPosition(key),
-            player: dataBase.universe[key],
+            player: players[getPlayerPosByLogin(dataBase.universe[key])]
         });
     }
 }

@@ -78,8 +78,18 @@
   <!-- /.row -->
   <div class="row">
     <div class="col-lg-12">
-
-
+      <div data-ng-if="mode == 1">
+        <div players-widget></div>
+      </div>
+      <div data-ng-if="mode == 2">
+        <div manage-mp-news-widget></div>
+      </div>
+      <div data-ng-if="mode == 3">
+        <div manage-mp-stock-widget></div>
+      </div>
+      <div data-ng-if="mode == 4">
+        <div manage-mp-promotions-widget></div>
+      </div>
     </div>
   </div>
   <!-- /.row -->

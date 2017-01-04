@@ -22,8 +22,7 @@ angular
     'ui.bootstrap',
     'toaster',
     'angularFileUpload',
-    'selector',
-    'angularMoment'
+    'selector'
   ])
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider

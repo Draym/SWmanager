@@ -209,6 +209,9 @@
 
 .register .right { float: right; }
 
+.selected {
+  background-color: #122b40 !important;
+}
 
 /* ==========================================================================
 Navbar
