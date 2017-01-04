@@ -123,7 +123,7 @@ angular.module('SWmanagerApp')
       }
     };
 
-    /** FUNCTION **/
+    /*** FUNCTION ***/
 
     $scope.detailPlayer = function (player) {
       var modalInstance = $uibModal.open({
@@ -164,7 +164,7 @@ angular.module('SWmanagerApp')
       $scope.parseUnparsedPlayers();
     };
 
-    /** LOAD **/
+    /*** LOAD ***/
     $scope.loadPlayers = function () {
       RequestAPI.GET("/player/all", SubmitResult.submitSuccess(function (response) {
           $scope.unparsedPlayers = response.data.players;

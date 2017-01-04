@@ -208,9 +208,10 @@ function calculationGalaxyPop() {
 
     // add percent
     for (var key in galaxyPop) {
-        galaxyPop[key].percent = (galaxyPop[key].total * 100) / planets.length;
+        galaxyPop[key].percent = ((galaxyPop[key].total * 100) / planets.length).toFixed(2);
         for (var i = 0; i < galaxyPop[key].systems.length; ++i) {
-            galaxyPop[key].systems[i].percent = (galaxyPop[key].systems[i].total * 100) / galaxyPop[key].total;
+            galaxyPop[key].systems[i].galaxyPercent = parseFloat(((galaxyPop[key].systems[i].total * 100) / galaxyPop[key].total).toFixed(2));
+            galaxyPop[key].systems[i].totalPercent = parseFloat(((galaxyPop[key].systems[i].total * 100) / planets.length).toFixed(2));
         }
     }
 }

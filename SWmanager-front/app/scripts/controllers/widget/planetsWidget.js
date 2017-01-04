@@ -138,7 +138,7 @@ angular.module('SWmanagerApp')
       $scope.planets.sort(comparePosition);
     };
 
-    /** FUNCTION **/
+    /*** FUNCTION ***/
 
     $scope.detailPlayer = function (player) {
       var modalInstance = $uibModal.open({
@@ -161,7 +161,7 @@ angular.module('SWmanagerApp')
       });
     };
 
-    /** LOAD **/
+    /*** LOAD ***/
     $scope.loadPlanets = function () {
       RequestAPI.GET("/planet/all", SubmitResult.submitSuccess(function (response) {
           $scope.unparsedPlanets = response.data.planets;

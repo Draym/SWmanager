@@ -35,7 +35,6 @@
     },
     "player": ""
   },
-
   /** GALAXY POP **/
 
   "galaxyPop": {
@@ -45,28 +44,39 @@
       "percent": 9,
       "systems": [
         {
+          "min": 0,
+          "max": 100,
+          "total": 10,
+          "galaxyPercent": 18,
+          "totalPercent": 10
+        },
+        {
           "min": 100,
           "max": 200,
           "total": 10,
-          "percent": 18
+          "galaxyPercent": 18,
+          "totalPercent": 10
         },
         {
           "min": 200,
           "max": 300,
           "total": 19,
-          "percent": 35
+          "galaxyPercent": 18,
+          "totalPercent": 10
         },
         {
           "min": 300,
           "max": 400,
           "total": 5,
-          "percent": 9
+          "galaxyPercent": 18,
+          "totalPercent": 10
         },
         {
           "min": 400,
           "max": 499,
           "total": 10,
-          "percent": 18
+          "galaxyPercent": 18,
+          "totalPercent": 10
         }
       ]
     },

@@ -42,7 +42,11 @@
     "test": "karma start test\\karma.conf.js"
   },
   "dependencies": {
+    "@angular/common": "^2.0.0",
+    "@angular/compiler": "^2.0.0",
     "@angular/core": "^2.2.4",
+    "@angular/forms": "^2.0.0",
+    "chart.js": "^2.4.0",
     "es6-shim": "^0.35.0",
     "grunt-cli": "^1.2.0",
     "jquery": "^3.1.1",

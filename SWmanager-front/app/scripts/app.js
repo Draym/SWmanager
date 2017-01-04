@@ -8,9 +8,9 @@
  *
  * Main module of the application.
  */
+
 angular
   .module('SWmanagerApp', [
-    'ngAnimate',
     'ngAria',
     'ngCookies',
     'ngMessages',
@@ -22,9 +22,10 @@ angular
     'ui.bootstrap',
     'toaster',
     'angularFileUpload',
-    'selector'
+    'selector',
+    'chart.js'
   ])
-  .config(function ($routeProvider, $locationProvider) {
+  .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',

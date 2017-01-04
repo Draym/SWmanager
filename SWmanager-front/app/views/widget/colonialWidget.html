@@ -1,1 +1,80 @@
-<div></div>
+<div>
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <i class="fa fa-bar-chart-o fa-fw"></i> Population across {{labelTitle[mode]}}
+          <div class="pull-right">
+            <div class="btn-group">
+              <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                Choose Galaxy
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu pull-right" role="menu">
+                <li><a data-ng-click="getChartGalaxy(0)">All</a>
+                </li>
+                <li><a data-ng-click="getChartGalaxy(1)">Galaxy 1</a>
+                </li>
+                <li><a data-ng-click="getChartGalaxy(2)">Galaxy 2</a>
+                </li>
+                <li><a data-ng-click="getChartGalaxy(3)">Galaxy 3</a>
+                </li>
+                <li><a data-ng-click="getChartGalaxy(4)">Galaxy 4</a>
+                </li>
+                <li><a data-ng-click="getChartGalaxy(5)">Galaxy 5</a>
+                </li>
+                <li><a data-ng-click="getChartGalaxy(6)">Galaxy 6</a>
+                </li>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+          <canvas id="line"
+                  class="chart chart-line"
+                  chart-data="chartData"
+                  chart-labels="chartLabels"
+                  chart-series="chartSeries"
+                  chart-options="chartOptions"
+                  chart-dataset-override="datasetOverride"
+                  chart-click="onChartClick">
+          </canvas>
+        </div>
+        <!-- /.panel-body -->
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <i class="fa fa-bar-chart-o fa-fw"></i> Percent for each Galaxy
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+          <canvas id="polar-area" class="chart chart-polar-area"
+                  chart-data="polarData"
+                  chart-labels="polarLabels"
+                  chart-options="polarOptions"
+                  chart-click="onPolarClick">
+          </canvas>
+        </div>
+        <!-- /.panel-body -->
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Search the best position for your next planets
+        </div>
+        <!-- /.panel-heading -->
+
+        <div class="panel-body">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
