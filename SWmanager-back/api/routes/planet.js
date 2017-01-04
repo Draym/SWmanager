@@ -20,11 +20,12 @@ router.get('/', function (req, res, next) {
 
 router.get('/all', function (req, res, next) {
     Planet.find(function (err, planets) {
+        console.log(err, planets)
         if (err) {
             res.send({success: false, message: 'Internal error', errcode: 7});
         }
         else {
-            res.send({success: true, 'players': planets});
+            res.send({success: true, 'planets': planets});
         }
     })
 });

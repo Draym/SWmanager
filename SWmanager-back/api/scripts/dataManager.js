@@ -182,16 +182,16 @@ function calculationGalaxyPop() {
         var min = 0;
         var max = 100;
 
-        for (var i2 = 0; i2 < 4; ++i2) {
-            min += 100;
-            max += 100;
-            max = (max == 500 ? 499 : max);
+        for (var i2 = 0; i2 < 5; ++i2) {
             galaxyPop['galaxy_' + i].systems.push({
                 min: min,
                 max: max,
                 total: 0,
                 percent: 0
             });
+            min += 100;
+            max += 100;
+            max = (max == 500 ? 499 : max);
         }
     }
 

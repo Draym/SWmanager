@@ -19,7 +19,7 @@ angular.module('SWmanagerApp')
     $scope.pagedItems = [];
     $scope.currentPage = 0;
 
-    // calculate page in place
+    /*** PAGINATION ***/
     $scope.groupToPages = function () {
       $scope.pagedItems = [];
 
@@ -79,6 +79,7 @@ angular.module('SWmanagerApp')
       $scope.currentPage = val;
     };
 
+    /*** COMPARATOR ***/
     function comparePseudoASC(player1, player2) {
       return player1.pseudo > player2.pseudo;
     }
@@ -90,6 +91,7 @@ angular.module('SWmanagerApp')
       return player1.score.total < player2.score.total;
     }
 
+    /*** PARSER ***/
     var parseByPseudo = function() {
       if ($scope.searchPlayer && $scope.searchPlayer != "") {
         for (var i = 0; i < $scope.players.length; ++i) {
@@ -117,9 +119,6 @@ angular.module('SWmanagerApp')
       } else if ($scope.sortByScore) {
         $scope.players.sort(compareScore);
       }
-      for (var i = 0; i < $scope.players.length; ++i) {
-        $scope.players[i].index = i;
-      }
     };
 
     /** FUNCTION **/
@@ -141,10 +140,14 @@ angular.module('SWmanagerApp')
     $scope.loadPlayers = function () {
       RequestAPI.GET("/player/all", SubmitResult.submitSuccess(function (response) {
           $scope.unparsedPlayers = response.data.players;
+          for (var i = 0; i < $scope.unparsedPlayers.length; ++i) {
+            $scope.unparsedPlayers[i].index = i;
+          }
           $scope.parseUnparsedPlayers();
           $scope.busy = false;
         }),
         SubmitResult.submitFailure(function () {
+          $scope.busy = false;
         }));
     };
 
@@ -165,11 +168,9 @@ angular.module('SWmanagerApp')
       }
       tempFilterText = val;
       filterTextTimeout = $timeout(function () {
-        console.log("'", $scope.searchPlayer);
         if ($scope.searchPlayer == null) {
           return;
         }
-        console.log("parse")
         $scope.parseUnparsedPlayers();
       }, tempo); // delay in ms
     })

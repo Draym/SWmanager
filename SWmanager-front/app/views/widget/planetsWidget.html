@@ -1,0 +1,94 @@
+<div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Planets
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body">
+      <div class="row" style="margin-bottom: 10px">
+        <div class="col-md-2">
+          <label class="sr-only" for="selectG"></label>
+          <select name="selectG" id="selectG" class="form-control"
+                  data-ng-model="currentSelect.G"
+                  data-ng-options="current as current.name for current in galaxy"
+                  data-ng-change="parseUnparsedPlanets()">
+            <!--
+            <option value="0">All Galaxy</option>
+            <option value="1">Galaxy_1</option>
+            <option value="2">Galaxy_2</option>
+            <option value="3">Galaxy_3</option>
+            <option value="4">Galaxy_4</option>
+            <option value="5">Galaxy_5</option>
+            <option value="6">Galaxy_6</option>-->
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label class="sr-only" for="selectS"></label>
+          <select name="selectS" id="selectS" class="form-control"
+                  data-ng-model="currentSelect.S"
+                  data-ng-options="current as current.name for current in system"
+                  data-ng-change="parseUnparsedPlanets()">
+            <!--
+            <option value="{id:0, min:0, max: 0}">All System</option>
+            <option value="{id:0, min:0, max: 100}">System 000 -> 100</option>
+            <option value="{id:0, min:100, max: 200}">System 100 -> 200</option>
+            <option value="{id:0, min:200, max: 300}">System 200 -> 300</option>
+            <option value="{id:0, min:300, max: 400}">System 300 -> 400</option>
+            <option value="{id:0, min:400, max: 499}">System 400 -> 499</option>-->
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="table-responsive">
+          <table class="table table-hover" id="dataTables-example">
+            <thead>
+            <tr>
+              <th style="width: 10%">#</th>
+              <th style="width: 40%">Position</th>
+              <th style="width: 30%">Owner</th>
+            </tr>
+            </thead>
+            <tfoot>
+            <td colspan="6">
+              <div class="pagination pull-right">
+                <div class="btn-group" data-toggle="buttons">
+                  <label class="btn btn-primary active"
+                         data-ng-class="{disabled: firstPage()}"
+                         data-ng-click="prevPage()">
+                    <input type="radio" name="options" id="prev" autocomplete="off"> Prev
+                  </label>
+                  <label class="btn btn-primary active">
+                    <input type="radio" name="options" id="current" autocomplete="off"> {{currentPage + 1}}
+                  </label>
+                  <!--
+                  <button class="btn btn-info" data-ng-class="{'selected' : n + 1 == currentPage}"
+                          data-ng-repeat="n in range(currentPage, pagedItems.length) track by $index"
+                          data-ng-click="setPage(n)">
+                    <span data-ng-if="n >= 0">{{n + 1}}</span>
+                    <span data-ng-if="n < 0">...</span></button>-->
+                  <label class="btn btn-primary active"
+                         data-ng-class="{disabled: lastPage()}"
+                         data-ng-click="nextPage()">
+                    <input type="radio" name="options" id="next" autocomplete="off"> Next
+                  </label>
+                </div>
+              </div>
+            </td>
+            </tfoot>
+            <tbody>
+            <tr data-ng-repeat="planet in pagedItems[currentPage] track by planet.index"
+                data-ng-click="detailPlayer(planet.player)">
+              <td>{{planet.index + 1}}</td>
+              <td>{{planet.position.g}} : {{planet.position.s}} : {{planet.position.p}}</td>
+              <td>{{planet.player.pseudo}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /.table-responsive -->
+      </div>
+    </div>
+    <!-- /.panel-body -->
+  </div>
+  <!-- /.panel -->
+</div>
