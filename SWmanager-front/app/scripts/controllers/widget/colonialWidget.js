@@ -16,8 +16,8 @@ angular.module('SWmanagerApp')
 
     /*** CONFIGURATION CHART ***/
     $scope.chartLabels = [];
-    $scope.chartSeries = ['Population percent: '];
-    $scope.chartData = [[]];
+    $scope.chartSeries = ['Population percent: ', 'Inactif percent: '];
+    $scope.chartData = [[], []];
 
     $scope.onChartClick = function (points, evt) {
     };
@@ -66,6 +66,7 @@ angular.module('SWmanagerApp')
         if ($scope.galaxy[key].g == g) {
           for (var i = 0; i < $scope.galaxy[key].systems.length; ++i) {
             $scope.chartData[0].push($scope.galaxy[key].systems[i].galaxyPercent);
+            $scope.chartData[1].push($scope.galaxy[key].systems[i].galaxyPercentI);
             $scope.chartLabels.push($scope.galaxy[key].systems[i].min + "/" + $scope.galaxy[key].systems[i].max);
           }
         }
@@ -78,6 +79,7 @@ angular.module('SWmanagerApp')
       for (var key in $scope.galaxy) {
         for (var i = 0; i < $scope.galaxy[key].systems.length; ++i) {
           $scope.chartData[0].push($scope.galaxy[key].systems[i].totalPercent);
+          $scope.chartData[1].push($scope.galaxy[key].systems[i].totalPercentI);
           $scope.chartLabels.push("(" + $scope.galaxy[key].g + ": " + $scope.galaxy[key].systems[i].min + "/" + $scope.galaxy[key].systems[i].max + ")");
         }
       }

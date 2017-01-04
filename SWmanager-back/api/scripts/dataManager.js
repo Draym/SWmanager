@@ -187,7 +187,11 @@ function calculationGalaxyPop() {
                 min: min,
                 max: max,
                 total: 0,
-                percent: 0
+                galaxyPercent: 0,
+                totalPercent: 0,
+                totalI: 0,
+                galaxyPercentI: 0,
+                totalPercentI: 0,
             });
             min += 100;
             max += 100;
@@ -202,6 +206,9 @@ function calculationGalaxyPop() {
             if (planets[i].position.s >= galaxyPop['galaxy_' + planets[i].position.g].systems[i2].min
                 && planets[i].position.s < galaxyPop['galaxy_' + planets[i].position.g].systems[i2].max) {
                 galaxyPop['galaxy_' + planets[i].position.g].systems[i2].total += 1;
+                if (planets[i].player.inactif) {
+                    galaxyPop['galaxy_' + planets[i].position.g].systems[i2].totalI += 1;
+                }
             }
         }
     }
@@ -212,6 +219,8 @@ function calculationGalaxyPop() {
         for (var i = 0; i < galaxyPop[key].systems.length; ++i) {
             galaxyPop[key].systems[i].galaxyPercent = parseFloat(((galaxyPop[key].systems[i].total * 100) / galaxyPop[key].total).toFixed(2));
             galaxyPop[key].systems[i].totalPercent = parseFloat(((galaxyPop[key].systems[i].total * 100) / planets.length).toFixed(2));
+            galaxyPop[key].systems[i].galaxyPercentI = parseFloat(((galaxyPop[key].systems[i].totalI * 100) / galaxyPop[key].total).toFixed(2));
+            galaxyPop[key].systems[i].totalPercentI = parseFloat(((galaxyPop[key].systems[i].totalI * 100) / planets.length).toFixed(2));
         }
     }
 }
