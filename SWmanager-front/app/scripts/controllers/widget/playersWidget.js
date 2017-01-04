@@ -11,7 +11,6 @@
 angular.module('SWmanagerApp')
   .controller('PlayersWidgetCtrl', function ($scope, $timeout, $uibModal, toaster, SubmitResult, RequestAPI, User, CloneUtilsCustom) {
 
-    $scope.sortByScore = true;
     $scope.sortByPseudoASC = false;
     $scope.sortByPseudoDESC = false;
     $scope.players = [];
@@ -113,10 +112,13 @@ angular.module('SWmanagerApp')
 
     $scope.sortParsedPlayers = function () {
       if ($scope.sortByPseudoASC) {
+        console.log("sortASC")
         $scope.players.sort(comparePseudoASC);
       } else if ($scope.sortByPseudoDESC) {
+        console.log("sortDESC")
         $scope.players.sort(comparePseudoDESC);
-      } else if ($scope.sortByScore) {
+      } else {
+        console.log("sortSCORE")
         $scope.players.sort(compareScore);
       }
     };
@@ -136,10 +138,37 @@ angular.module('SWmanagerApp')
       });
     };
 
+    $scope.openHelp = function (player) {
+      var modalInstance = $uibModal.open({
+        templateUrl: 'views/help/helpPlayerModal.html',
+        controller: 'HelpPlayerModalCtrl',
+        size: 'lg'
+      });
+    };
+
+    $scope.sortByScore = function() {
+      $scope.sortByPseudoDESC = false;
+      $scope.sortByPseudoASC = false;
+      $scope.parseUnparsedPlayers();
+    };
+
+    $scope.sortByASC = function() {
+      $scope.sortByPseudoASC = true;
+      $scope.sortByPseudoDESC = false;
+      $scope.parseUnparsedPlayers();
+    };
+
+    $scope.sortByDESC = function() {
+      $scope.sortByPseudoASC = false;
+      $scope.sortByPseudoDESC = true;
+      $scope.parseUnparsedPlayers();
+    };
+
     /** LOAD **/
     $scope.loadPlayers = function () {
       RequestAPI.GET("/player/all", SubmitResult.submitSuccess(function (response) {
           $scope.unparsedPlayers = response.data.players;
+          $scope.unparsedPlayers.sort(compareScore);
           for (var i = 0; i < $scope.unparsedPlayers.length; ++i) {
             $scope.unparsedPlayers[i].index = i;
           }

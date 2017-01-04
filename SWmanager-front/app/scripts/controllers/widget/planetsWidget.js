@@ -91,6 +91,17 @@ angular.module('SWmanagerApp')
 
 
     /*** PARSER ***/
+    var parseByPlayer = function() {
+      if ($scope.searchPlayer && $scope.searchPlayer != "") {
+        for (var i = 0; i < $scope.planets.length; ++i) {
+          if (!$scope.planets[i].player.pseudo.toLowerCase().includes($scope.searchPlayer.toLowerCase())) {
+            $scope.planets.splice(i, 1);
+            --i;
+          }
+        }
+      }
+    };
+
     var parseByG = function () {
       if ($scope.currentSelect.G.id != 0) {
         for (var i = 0; i < $scope.planets.length; ++i) {
@@ -118,6 +129,7 @@ angular.module('SWmanagerApp')
 
       parseByG();
       parseByS();
+      parseByPlayer();
       $scope.sortParsedPlanets();
       $scope.groupToPages();
     };
@@ -138,6 +150,14 @@ angular.module('SWmanagerApp')
             return {player: player};
           }
         }
+      });
+    };
+
+    $scope.openHelp = function (player) {
+      var modalInstance = $uibModal.open({
+        templateUrl: 'views/help/helpPlanetModal.html',
+        controller: 'HelpPlanetModalCtrl',
+        size: 'lg'
       });
     };
 
@@ -192,4 +212,22 @@ angular.module('SWmanagerApp')
     };
 
     $scope.initPlanets();
+
+    // Instantiate these variables outside the watch
+    var tempo = 400;
+    var tempFilterText = '',
+      filterTextTimeout;
+
+    $scope.$watch('searchPlayer', function (val) {
+      if (filterTextTimeout) {
+        $timeout.cancel(filterTextTimeout);
+      }
+      tempFilterText = val;
+      filterTextTimeout = $timeout(function () {
+        if ($scope.searchPlayer == null) {
+          return;
+        }
+        $scope.parseUnparsedPlanets();
+      }, tempo); // delay in ms
+    })
   });

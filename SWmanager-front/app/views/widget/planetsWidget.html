@@ -2,6 +2,8 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       Planets
+      <i class="fa fa-info-circle pull-right" style="font-size: 150%; color: #31b0d5" aria-hidden="true"
+         data-ng-click="openHelp()"></i>
     </div>
     <!-- /.panel-heading -->
     <div class="panel-body">
@@ -12,14 +14,6 @@
                   data-ng-model="currentSelect.G"
                   data-ng-options="current as current.name for current in galaxy"
                   data-ng-change="parseUnparsedPlanets()">
-            <!--
-            <option value="0">All Galaxy</option>
-            <option value="1">Galaxy_1</option>
-            <option value="2">Galaxy_2</option>
-            <option value="3">Galaxy_3</option>
-            <option value="4">Galaxy_4</option>
-            <option value="5">Galaxy_5</option>
-            <option value="6">Galaxy_6</option>-->
           </select>
         </div>
         <div class="col-md-2">
@@ -28,14 +22,14 @@
                   data-ng-model="currentSelect.S"
                   data-ng-options="current as current.name for current in system"
                   data-ng-change="parseUnparsedPlanets()">
-            <!--
-            <option value="{id:0, min:0, max: 0}">All System</option>
-            <option value="{id:0, min:0, max: 100}">System 000 -> 100</option>
-            <option value="{id:0, min:100, max: 200}">System 100 -> 200</option>
-            <option value="{id:0, min:200, max: 300}">System 200 -> 300</option>
-            <option value="{id:0, min:300, max: 400}">System 300 -> 400</option>
-            <option value="{id:0, min:400, max: 499}">System 400 -> 499</option>-->
           </select>
+        </div>
+        <div class="col-md-3">
+          <div class="form-inline" style="padding-left: 5px; margin-bottom: 10px">
+            <label for="name">Search : </label>
+            <input type="text" name="path" id="name" class="form-control"
+                   value="" data-ng-model="searchPlayer" placeholder="pseudo">
+          </div>
         </div>
       </div>
       <div class="row">

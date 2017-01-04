@@ -2,15 +2,40 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       Players
+      <i class="fa fa-info-circle pull-right" style="font-size: 150%; color: #31b0d5" aria-hidden="true"
+         data-ng-click="openHelp()"></i>
     </div>
     <!-- /.panel-heading -->
     <div class="panel-body">
       <div class="row">
+        <div class="col-md-3">
           <div class="form-inline" style="padding-left: 5px; margin-bottom: 10px">
-            <label for="name">Search: </label>
+            <label for="name">Search : </label>
             <input type="text" name="path" id="name" class="form-control"
-                   value="" data-ng-model="searchPlayer">
+                   value="" data-ng-model="searchPlayer" placeholder="player">
           </div>
+        </div>
+
+        <div class="col-md-5">
+          <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-default"
+                   data-ng-click="sortByScore()" disabled>
+              <input type="radio" name="options" id="menu" autocomplete="off"> Sort by
+            </label>
+            <label class="btn btn-primary"
+            data-ng-click="sortByScore()">
+            <input type="radio" name="options" id="sortScore" autocomplete="off"> Score
+            </label>
+            <label class="btn btn-primary"
+                   data-ng-click="sortByASC()">
+              <input type="radio" name="options" id="sortASC" autocomplete="off"> ASC
+            </label>
+            <label class="btn btn-primary"
+                   data-ng-click="sortByDESC()">
+              <input type="radio" name="options" id="sortDESC" autocomplete="off"> DESC
+            </label>
+          </div>
+        </div>
       </div>
       <div class="row">
         <div class="table-responsive">
