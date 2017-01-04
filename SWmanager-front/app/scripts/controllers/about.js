@@ -8,16 +8,8 @@
  * Controller of the SWmanagerApp
  */
 angular.module('SWmanagerApp')
-  .controller('AboutCtrl', function ($scope, $cookies) {
-
-    $(document).ready(function() {
-      $('#Carousel').carousel({
-        interval: 5000
-      })
-    });
-
+  .controller('AboutCtrl', function ($scope, User) {
     $scope.removeCookies = function () {
-      $cookies.remove("userConnected");
-      $cookies.remove("token")
+      User.disconnect();
     };
   });

@@ -12,15 +12,16 @@ angular.module('SWmanagerApp')
     // Service logic
     var idPlayerLogin = "playerLogin";
     var timeOut = 360;
-    var player;
+    var player = null;
 
     var init = function () {
       var token = $cookies.get(idPlayerLogin);
       (token == null ? disconnect() : connect());
     };
 
-    function connect(playerLogin) {
-      $cookies.put(idPlayerLogin, playerLogin, {
+    function connect(user) {
+      player = user;
+      $cookies.put(idPlayerLogin, user.pseudo, {
         expires: DateTools.addMinutesToCurrentDate(timeOut)
       });
     }
@@ -42,9 +43,6 @@ angular.module('SWmanagerApp')
       getLogin: function () {
         return $cookies.get(idPlayerLogin);
       },
-      setPlayer: function(value) {
-        player = value;
-      },
       getPlayer : function() {
         return player;
       },
@@ -60,8 +58,8 @@ angular.module('SWmanagerApp')
         }
         return id;
       },
-      connect: function (playerLogin) {
-        connect(playerLogin);
+      connect: function (player) {
+        connect(player);
       },
       disconnect: function () {
         disconnect();

@@ -4,8 +4,8 @@ var router = express.Router();
 var Player = require('../scripts/playerData');
 
 router.get('/', function (req, res, next) {
-    console.log(req.query);
-    Player.findByLogin(req.query.login, function (err, player) {
+    Player.findByLogin(req.query.pseudo, function (err, player) {
+        console.log(err, player);
         if (err) {
             res.send({success: false, message: 'Internal error', errcode: 7});
         }

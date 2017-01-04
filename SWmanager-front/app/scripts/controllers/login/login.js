@@ -9,9 +9,6 @@
  */
 angular.module('SWmanagerApp')
   .controller('LoginCtrl', function ($scope, $location, toaster, RequestAPI, User, SubmitResult) {
-
-    $scope.userCtrl = User;
-    $scope.data = {};
     $scope.isBusy = false;
 
     $scope.loginPageLocation = function () {
@@ -20,15 +17,16 @@ angular.module('SWmanagerApp')
 
     $scope.doLogin = function () {
       $scope.isBusy = true;
-      RequestAPI.POST("/authenticate/login", $scope.data,
+      console.log("DODODO LOGIN")
+      RequestAPI.GET("/player",
         SubmitResult.submitSuccess(function (response) {
-          User.connect(response.data.login);
+          User.connect(response.data.player);
           $location.path("/");
           $scope.isBusy = false;
         }, "Connected"),
         SubmitResult.submitFailure(function (response) {
           $scope.isBusy = false;
-        }, "Connexion Failed"));
+        }, "Connexion Failed"), {pseudo: $scope.pseudo});
     };
 
     $scope.init = function () {

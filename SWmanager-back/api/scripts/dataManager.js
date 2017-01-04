@@ -16,12 +16,17 @@ var galaxyPop = {};
 // original data
 var dataBase = {};
 
+/*** EXTERNAL GETTERS ***/
 exports.getPlayers = function () {
     return players;
 };
 
 exports.getPlanets = function () {
     return planets;
+};
+
+exports.getGalaxyPop = function() {
+    return galaxyPop;
 };
 
 /*** TOOLS ***/
@@ -167,7 +172,7 @@ function addInactifStatusToPlayer() {
 function calculationGalaxyPop() {
 
     // create galaxyPop
-    for (var i = 1; i != 7; ++i) {
+    for (var i = 1; i <= 6; ++i) {
         galaxyPop['galaxy_' + i] = {
             g: i,
             total: 0,

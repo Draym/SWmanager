@@ -25,7 +25,7 @@ angular
     'selector',
     'angularMoment'
   ])
-  .config(function ($routeProvider) {
+  .config(function ($routeProvider, $locationProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -42,17 +42,9 @@ angular
         controller: 'LoginCtrl',
         controllerAs: 'login'
       })
-      .when('/createAccount', {
-        templateUrl: 'views/account/createAccount.html',
-        controller: 'CreateAccountCtrl',
-        controllerAs: 'createAccount'
-      })
-      .when('/myAccount', {
-        templateUrl: 'views/account/myAccount.html',
-        controller: 'MyAccountCtrl',
-        controllerAs: 'myAccount'
-      })
       .otherwise({
         redirectTo: '/'
       });
-  });
+  }).config(['$locationProvider', function ($locationProvider) {
+    $locationProvider.hashPrefix('');
+  }]);

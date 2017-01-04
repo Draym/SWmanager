@@ -12,7 +12,7 @@ exports.findByLogin = function(login, callback) {
 
     if (players) {
         for (var i = 0; i < players.length; ++i) {
-            if (players[i].login == login) {
+            if (players[i].pseudo == login) {
                 result = players[i];
                 err = null;
                 break;

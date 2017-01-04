@@ -12,10 +12,12 @@ angular.module('SWmanagerApp')
 
     $scope.init = function () {
       if (User.getLogin() != undefined) {
-        RequestAPI.GET("/player", SubmitResult.submitSuccess(function (response) {
-            User.setPlayer(response.data.player);
-          }),
-          SubmitResult.submitFailure(), {login: User.getLogin()});
+        if (User.getPlayer() == null) {
+          RequestAPI.GET("/player", SubmitResult.submitSuccess(function (response) {
+              User.connect(response.data.player);
+            }),
+            SubmitResult.submitFailure(), {pseudo: User.getLogin()});
+        }
       } else {
         $location.path("/login");
       }
