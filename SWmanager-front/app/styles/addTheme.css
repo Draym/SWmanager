@@ -1,0 +1,14 @@
+
+.sidebar {
+  margin-top: 55px;
+}
+
+.panel-grey > .panel-heading {
+  border-color: #999d9f;
+  color: white;
+  background-color: #999d9f;
+}
+
+.panel-button :hover{
+  cursor: pointer;
+}

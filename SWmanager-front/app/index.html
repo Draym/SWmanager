@@ -12,55 +12,72 @@
   <link rel="stylesheet" href="bower_components/AngularJS-Toaster/toaster.css" />
   <link rel="stylesheet" href="bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.css" />
   <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
-  <link rel="stylesheet" href="bower_components/angular-selector/dist/angular-selector.css" />
+  <link rel="stylesheet" href="bower_components/sb-admin-2/css/sb-admin-2.css" />
+  <link rel="stylesheet" href="bower_components/sb-admin-2/font-awesome-4.1.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="bower_components/sb-admin-2/less/sb-admin-2.less" />
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
   <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/addTheme.css">
   <link rel="stylesheet" href="styles/custom.css">
   <!-- endbuild -->
 </head>
+
 <body data-ng-app="SWmanagerApp">
 
-<!-- Add your site or application content here -->
-<div class="header" style="border-bottom: none">
-  <div class="navbar navbar-default" role="navigation">
-    <div class="container container-head">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#/" left>SWmanager</a>
-      </div>
 
-      <div class="collapse navbar-collapse" id="js-navbar-collapse" style="width: 84%;">
+<div id="wrapper">
+  <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#/" left>SWmanager</a>
+    </div>
 
-        <ul class="nav navbar-nav">
+    <ul class="nav navbar-top-links navbar-right">
+    </ul>
 
-        </ul>
-
-        <ul class="nav navbar-nav navbar-right">
-          <li><a ng-href="#/allProducts" class="navbarItem"><span
-            class="glyphicon glyphicon-gift"></span><b>Products</b></a></li>
-          <li><a ng-href="#/allMarketPlaces" class="navbarItem"><span class="glyphicon glyphicon-piggy-bank"
-                                                                      style="padding-right:3px"></span><b>MarketPlaces</b></a>
+    <div class="navbar-default sidebar" role="navigation">
+      <div class="sidebar-nav navbar-collapse">
+        <ul class="nav" id="side-menu">
+          <li>
+            <a href="index.html"><i class="fa fa-user-circle-o fa-fw"></i> Profile</a>
           </li>
         </ul>
       </div>
+      <!-- /.sidebar-collapse -->
     </div>
-  </div>
-</div>
+  </nav>
 
 <toaster-container toaster-options="
     {'close-button':{ 'toast-warning': true, 'toast-error': false } }">
 </toaster-container>
 
+  <!-- Page Content -->
+  <div id="page-wrapper">
+
+    <div ng-view="content"></div>
+  </div>
+  <!-- /#page-wrapper -->
+
+
+  <div class="footer">
+    <div class="container container-head">
+      <a class="pull-right" href="#/about">About</a>
+    </div>
+  </div>
+
+</div>
+<!-- /#wrapper -->
+<!---
 <div class="container">
   <div class="well" ng-view="content"></div>
-</div>
-
-<div class="footer">
-  <div class="container container-head">
-    <a class="pull-right" href="#/about">About</a>
-  </div>
-</div>
+</div>-->
 
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->

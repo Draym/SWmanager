@@ -5,7 +5,6 @@ var Player = require('../scripts/playerData');
 
 router.get('/', function (req, res, next) {
     Player.findByLogin(req.query.pseudo, function (err, player) {
-        console.log(err, player);
         if (err) {
             res.send({success: false, message: 'Internal error', errcode: 7});
         }

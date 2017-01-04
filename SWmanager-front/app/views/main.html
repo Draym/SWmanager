@@ -1,3 +1,86 @@
 <div>
-  Welcome Main page
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">Dashboard</h1>
+    </div>
+  </div>
+  <!-- /.row -->
+  <div class="row">
+    <div class="col-lg-3 col-md-6">
+      <div class="panel panel-button" data-ng-class="(hover == 1 || mode == 1) ? 'panel-default' : 'panel-grey'"
+           data-ng-mouseenter="hover = 1" data-ng-mouseleave="hover = 0"
+           data-ng-click="changeMode(1)">
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col-xs-3">
+              <i class="fa fa-user-circle-o fa-5x"></i>
+            </div>
+            <div class="col-xs-9 text-right">
+              <div class="huge">Players</div>
+              <div>Find a player!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+      <div class="panel panel-button" data-ng-class="(hover == 2 || mode == 2) ? 'panel-success' : 'panel-green'"
+           data-ng-mouseenter="hover = 2" data-ng-mouseleave="hover = 0"
+           data-ng-click="changeMode(2)">
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col-xs-3">
+              <i class="fa fa-wpexplorer fa-5x"></i>
+            </div>
+            <div class="col-xs-9 text-right">
+              <div class="huge">Galaxy</div>
+              <div>Explore planets!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+      <div class="panel panel-button" data-ng-class="(hover == 3 || mode == 3) ? 'panel-info' : 'panel-primary'"
+           data-ng-mouseenter="hover = 3" data-ng-mouseleave="hover = 0"
+           data-ng-click="changeMode(3)">
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col-xs-3">
+              <i class="fa fa-ravelry fa-5x"></i>
+            </div>
+            <div class="col-xs-9 text-right">
+              <div class="huge">Colonial</div>
+              <div>New Orders!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+      <div class="panel panel-button" data-ng-class="(hover == 4 || mode == 4) ? 'panel-danger' : 'panel-red'"
+           data-ng-mouseenter="hover = 4" data-ng-mouseleave="hover = 0"
+           data-ng-click="changeMode(4)">
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col-xs-3">
+              <i class="fa fa-fighter-jet fa-5x"></i>
+            </div>
+            <div class="col-xs-9 text-right">
+              <div class="huge">Military</div>
+              <div>Support Tickets!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.row -->
+  <div class="row">
+    <div class="col-lg-12">
+
+
+    </div>
+  </div>
+  <!-- /.row -->
 </div>
