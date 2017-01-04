@@ -36,13 +36,13 @@ function getSystemMostPeople(galaxy, inactif) {
                     g = key;
                     s = i;
                 }
-                totalP += (galaxy[key].systems[i].total - galaxy[key].systems[i].totalI);
+                totalP += galaxy[key].systems[i].totalI;
             } else if (inactif == 'false') {
                 if ((galaxy[key].systems[i].total - galaxy[key].systems[i].totalI) > (galaxy[g].systems[s].total - galaxy[g].systems[s].totalI)) {
                     g = key;
                     s = i;
                 }
-                totalP += galaxy[key].systems[i].totalI;
+                totalP += (galaxy[key].systems[i].total - galaxy[key].systems[i].totalI);
             } else {
                 if (galaxy[key].systems[i].total > galaxy[g].systems[s].total) {
                     g = key;
@@ -78,13 +78,13 @@ function getSystemLessPeople(galaxy, inactif) {
                     g = key;
                     s = i;
                 }
-                totalP += (galaxy[key].systems[i].total - galaxy[key].systems[i].totalI);
+                totalP += galaxy[key].systems[i].totalI;
             } else if (inactif == 'false') {
                 if ((galaxy[key].systems[i].total - galaxy[key].systems[i].totalI) < (galaxy[g].systems[s].total - galaxy[g].systems[s].totalI)) {
                     g = key;
                     s = i;
                 }
-                totalP += galaxy[key].systems[i].totalI;
+                totalP += (galaxy[key].systems[i].total - galaxy[key].systems[i].totalI);
             } else {
                 if (galaxy[key].systems[i].total < galaxy[g].systems[s].total) {
                     g = key;

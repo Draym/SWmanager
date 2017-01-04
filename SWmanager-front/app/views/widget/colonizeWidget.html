@@ -230,15 +230,15 @@
                 <tbody>
                 <!-- PLAYER NUMBER -->
                 <tr data-ng-if="researchPlanets.requirements.inactif == 'false'">
-                  <td>Player actif</td>
+                  <td>Planet active</td>
                   <td>{{researchPlanets.total - researchPlanets.totalI}}</td>
                 </tr>
                 <tr data-ng-if="researchPlanets.requirements.inactif == 'true'">
-                  <td>Player inactif</td>
+                  <td>Planet inactive</td>
                   <td>{{researchPlanets.totalI}}</td>
                 </tr>
                 <tr data-ng-if="researchPlanets.requirements.inactif == 'null'">
-                  <td>Players</td>
+                  <td>Planets</td>
                   <td>{{researchPlanets.total}}</td>
                 </tr>
 
