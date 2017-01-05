@@ -9,12 +9,109 @@ function isTrue(value) {
     return value == 'true';
 }
 
-function parseGalaxyByType(galaxy, type) {
+function getDifferenceLevel(v1, v2) {
+    var percent = 20;
+    var point1 = parseFloat(v1);
+    var point2 = parseFloat(v2);
 
+    if (point1 < 10000000000000) {
+        percent = 80
+    } else if (point1 < 100000000000000) {
+        percent = 50;
+    }
+    if ((point1 + (point1 * percent / 100)) < point2) {
+        return "lower";
+    } else if ((point1 - (point1 * percent / 100)) > point2) {
+        return "higher";
+    } else {
+        return "medium";
+    }
 }
 
-function parseGalaxyByLevel(galaxy, level) {
+function getPlayerLevel(player, type, requirements) {
+    if (type == 'null') {
+        return getDifferenceLevel(requirements.scoreTotal, player.score.total);
+    } else if (type == 'building') {
+        return getDifferenceLevel(requirements.scoreBuilding, player.score.building);
+    } else if (type == 'fleet') {
+        return getDifferenceLevel(requirements.scoreFleet, player.score.fleet);
+    } else if (type == 'defense') {
+        return getDifferenceLevel(requirements.scoreDefense, player.score.defense);
+    }
+    return 'null';
+}
 
+function isPlanetAvailable(planet, requirements) {
+    if (requirements.type == 'null') {
+        return getPlayerLevel(planet.player, 'null', requirements) == requirements.level;
+    }
+    else if (planet.player.type == requirements.type) {
+        if (requirements.level == 'null') {
+            return true;
+        }
+        return getPlayerLevel(planet.player, requirements.type, requirements) == requirements.level;
+    }
+    return false;
+}
+
+function createNewGalaxyWithRestriction(requirements) {
+    var galaxyPop = {};
+    var planets = dataManager.getPlanets();
+
+    // create galaxyPop
+    for (var i = 1; i <= 6; ++i) {
+        galaxyPop['galaxy_' + i] = {
+            g: i,
+            total: 0,
+            percent: 0,
+            systems: []
+        };
+        var min = 0;
+        var max = 100;
+
+        for (var i2 = 0; i2 < 5; ++i2) {
+            galaxyPop['galaxy_' + i].systems.push({
+                min: min,
+                max: max,
+                total: 0,
+                galaxyPercent: 0,
+                totalPercent: 0,
+                totalI: 0,
+                galaxyPercentI: 0,
+                totalPercentI: 0,
+            });
+            min += 100;
+            max += 100;
+            max = (max == 500 ? 499 : max);
+        }
+    }
+    // parse planets
+    for (var i = 0; i < planets.length; ++i) {
+        if (isPlanetAvailable(planets[i], requirements)) {
+            galaxyPop['galaxy_' + planets[i].position.g].total += 1;
+            for (var i2 = 0; i2 < galaxyPop['galaxy_' + planets[i].position.g].systems.length; ++i2) {
+                if (planets[i].position.s >= galaxyPop['galaxy_' + planets[i].position.g].systems[i2].min
+                    && planets[i].position.s < galaxyPop['galaxy_' + planets[i].position.g].systems[i2].max) {
+                    galaxyPop['galaxy_' + planets[i].position.g].systems[i2].total += 1;
+                    if (planets[i].player.inactif) {
+                        galaxyPop['galaxy_' + planets[i].position.g].systems[i2].totalI += 1;
+                    }
+                }
+            }
+        }
+    }
+
+    // add percent
+    for (var key in galaxyPop) {
+        galaxyPop[key].percent = ((galaxyPop[key].total * 100) / planets.length).toFixed(2);
+        for (var i = 0; i < galaxyPop[key].systems.length; ++i) {
+            galaxyPop[key].systems[i].galaxyPercent = parseFloat(((galaxyPop[key].systems[i].total * 100) / galaxyPop[key].total).toFixed(2));
+            galaxyPop[key].systems[i].totalPercent = parseFloat(((galaxyPop[key].systems[i].total * 100) / planets.length).toFixed(2));
+            galaxyPop[key].systems[i].galaxyPercentI = parseFloat(((galaxyPop[key].systems[i].totalI * 100) / galaxyPop[key].total).toFixed(2));
+            galaxyPop[key].systems[i].totalPercentI = parseFloat(((galaxyPop[key].systems[i].totalI * 100) / planets.length).toFixed(2));
+        }
+    }
+    return galaxyPop;
 }
 
 function getSystemMostPeople(galaxy, inactif) {
@@ -113,11 +210,8 @@ exports.findBest = function (requirements, callback) {
             galaxy = {};
             galaxy[id] = tmp;
         }
-        if (requirements.type != 'null') {
-            parseGalaxyByType(galaxy, requirements.type);
-        }
-        if (requirements.level != 'null') {
-            parseGalaxyByLevel(galaxy, requirements.level);
+        if (requirements.type != 'null' || requirements.level != 'null') {
+            galaxy = createNewGalaxyWithRestriction(requirements)
         }
         if (isTrue(requirements.people)) {
             result = getSystemMostPeople(galaxy, requirements.inactif);

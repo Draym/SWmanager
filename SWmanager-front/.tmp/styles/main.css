@@ -291,6 +291,12 @@ btn
   border-color: #985f0d;
 }
 
+.btn-info.active {
+  color: #fff;
+  background-color: #269abc;
+  border-color: #1b6d85;
+}
+
 .btn-noEvent {
   color: #333;
   background-color: #fff;

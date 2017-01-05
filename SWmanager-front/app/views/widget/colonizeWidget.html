@@ -138,22 +138,18 @@
                       <input type="radio" name="options" autocomplete="off"> Strengh of Player ?
                     </label>
                     <label class="btn btn-primary"
-                           data-ng-click="choice.type = 'building'"
-                           disabled>
+                           data-ng-click="choice.type = 'building'">
                       <input type="radio" name="options" autocomplete="off"> Builder
                     </label>
                     <label class="btn btn-warning"
-                           data-ng-click="choice.type = 'defense'"
-                           disabled>
+                           data-ng-click="choice.type = 'defense'">
                       <input type="radio" name="options" autocomplete="off"> Bunker
                     </label>
                     <label class="btn btn-danger"
-                           data-ng-click="choice.type = 'fleet'"
-                           disabled>
+                           data-ng-click="choice.type = 'fleet'">
                       <input type="radio" name="options" autocomplete="off"> Raider
                     </label>
                   </div>
-                  <span style="color: red">!Available soon!</span>
                 </div>
               </div>
             </div>
@@ -168,22 +164,18 @@
                   <input type="radio" name="options" autocomplete="off"> Player Score ?
                 </label>
                 <label class="btn btn-grey"
-                       data-ng-click="choice.level = 'lower'"
-                       disabled>
+                       data-ng-click="choice.level = 'lower'">
                   <input type="radio" name="options" autocomplete="off"> Lower
                 </label>
                 <label class="btn btn-info"
-                       data-ng-click="choice.level = 'medium'"
-                       disabled>
+                       data-ng-click="choice.level = 'medium'">
                   <input type="radio" name="options" autocomplete="off"> Medium
                 </label>
                 <label class="btn btn-warning"
-                       data-ng-click="choice.level = 'higher'"
-                       disabled>
+                       data-ng-click="choice.level = 'higher'">
                   <input type="radio" name="options" autocomplete="off"> Higher
                 </label>
               </div>
-              <span style="color: red">!Available soon!</span>
             </div>
             <div class="modal-footer"></div>
           </div>
@@ -244,7 +236,7 @@
                 <!-- PLAYER PERCENT -->
                 <tr data-ng-if="researchPlanets.requirements.inactif == 'false'">
                   <td>Percent total</td>
-                  <td>{{researchPlanets.totalPercent - researchPlanets.totalPercentI}}%</td>
+                  <td>{{(researchPlanets.totalPercent - researchPlanets.totalPercentI).toFixed(2)}}%</td>
                 </tr>
                 <tr data-ng-if="researchPlanets.requirements.inactif == 'true'">
                   <td>Percent total</td>
@@ -255,6 +247,17 @@
                   <td>{{researchPlanets.totalPercent}}%</td>
                 </tr>
 
+                <!-- CHOICE -->
+                <tr data-ng-if="researchPlanets.requirements.type != 'null'">
+                  <td>Player target</td>
+                  <td data-ng-if="researchPlanets.requirements.type == 'building'">Builder</td>
+                  <td data-ng-if="researchPlanets.requirements.type == 'fleet'">Raider</td>
+                  <td data-ng-if="researchPlanets.requirements.type == 'defense'">Bunker</td>
+                </tr>
+                <tr data-ng-if="researchPlanets.requirements.level != 'null'">
+                  <td>Player target</td>
+                  <td>{{researchPlanets.requirements.level}}</td>
+                </tr>
                 <!-- DATA PARSED -->
                 <tr>
                   <td>Galaxy parsed</td>
