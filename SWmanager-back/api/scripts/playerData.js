@@ -5,7 +5,7 @@
 
 var dataManager = require('./dataManager');
 
-exports.findByLogin = function(login, callback) {
+exports.findByLogin = function (login, callback) {
     var players = dataManager.getPlayers();
     var result = null;
     var err = true;
@@ -22,11 +22,11 @@ exports.findByLogin = function(login, callback) {
     callback(err, result);
 };
 
-exports.find = function(callback) {
+exports.find = function (callback) {
     var result = dataManager.getPlayers();
     var err = null;
 
-    if (!result|| result.length == 0) {
+    if (!result || result.length == 0) {
         err = true;
     }
     callback(err, result);

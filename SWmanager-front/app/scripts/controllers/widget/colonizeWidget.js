@@ -9,7 +9,7 @@
  * Controller of the SWmanagerApp
  */
 angular.module('SWmanagerApp')
-  .controller('ColonizeWidgetCtrl', function ($scope, $timeout, $uibModal, toaster, SubmitResult, RequestAPI, User, CloneUtilsCustom) {
+  .controller('ColonizeWidgetCtrl', function ($scope, $timeout, $uibModal, toaster, SubmitResult, RequestAPI, User) {
 
     $scope.isBusy = false;
     $scope.resultAvailable = false;
@@ -144,7 +144,7 @@ angular.module('SWmanagerApp')
     };
 
     /*** LOAD ***/
-    $scope.loadPlayers = function () {
+    $scope.loadGalaxy = function () {
       $scope.isBusy = true;
       RequestAPI.GET("/planet/getPop", SubmitResult.submitSuccess(function (response) {
           $scope.galaxy = response.data.pop;
@@ -157,9 +157,9 @@ angular.module('SWmanagerApp')
         }));
     };
 
-    $scope.initPlayers = function () {
-      $scope.loadPlayers();
+    $scope.initGalaxy = function () {
+      $scope.loadGalaxy();
     };
 
-    $scope.initPlayers();
+    $scope.initGalaxy();
   });

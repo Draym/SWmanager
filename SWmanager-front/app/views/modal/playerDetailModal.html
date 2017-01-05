@@ -1,0 +1,72 @@
+<div data-ng-if="player">
+  <div class="modal-header">
+    <h3 style="margin-top: 5px; margin-left: 5px"><a><i class="fa fa-player-circle-o fa-fw"></i> Profile :</a>
+      {{player.pseudo}}<span class="title-info" data-ng-if="player.inactif">(I)</span>
+    <button type="button" class="close" aria-hidden="true"
+            data-ng-click="quit()">&times;</button></h3>
+  </div>
+  <div class="modal-body" style="display: flex">
+    <div class="col-md-1"></div>
+    <div class="col-md-5" style="margin-right: 10px">
+      <!-- PLAYER STAT -->
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Player stats</h4>
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+              <thead>
+              <tr>
+                <th>Type</th>
+                <th>Score</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>Total</td>
+                <td>{{player.score.total}}</td>
+              </tr>
+              <tr>
+                <td>Building</td>
+                <td>{{player.score.building}}</td>
+              </tr>
+              <tr>
+                <td>Defense</td>
+                <td>{{player.score.defense}}</td>
+              </tr>
+              <tr>
+                <td>Fleet</td>
+                <td>{{player.score.fleet}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5" style="margin-left: 10px">
+      <!-- PLANETS -->
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Planets</h4>
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+              <tbody>
+              <tr data-ng-repeat="planet in player.planets track by $index">
+                <td>{{planet.g}}</td>
+                <td>{{planet.s}}</td>
+                <td>{{planet.p}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+  <div class="modal-footer"></div>
+</div>

@@ -4,7 +4,9 @@
 
 var fs = require("fs");
 var sqlite3 = require("sqlite3").verbose();
-var Tools = require("./Tools");
+var Tools = require("./tools/Tools");
+var Log = require("./tools/logUtils");
+var Clone = require("./tools/cloneUtils");
 
 // data parsed and created
 var players = [];
@@ -18,15 +20,27 @@ var dataBase = {};
 
 /*** EXTERNAL GETTERS ***/
 exports.getPlayers = function () {
-    return players;
+    return Clone.cloneArray(players);
 };
 
 exports.getPlanets = function () {
-    return planets;
+    return Clone.cloneArray(planets);
 };
 
-exports.getGalaxyPop = function() {
-    return galaxyPop;
+exports.getGalaxyPop = function () {
+    return Clone.cloneObject(galaxyPop);
+};
+
+/*** EXTERNAL FIND ***/
+exports.findPlanet = function (id) {
+    if (planets) {
+        for (var i = 0; i < planets.length; ++i) {
+            if (planets[i].position.full == id) {
+                return Clone.cloneObject(planets[i]);
+            }
+        }
+    }
+    return null;
 };
 
 /*** TOOLS ***/
@@ -104,6 +118,7 @@ function collectScore(db, callbacks) {
 function transformPlanetPosition(pos) {
     var vals = pos.split(":");
     return {
+        full: pos,
         g: parseInt(vals[0]),
         s: parseInt(vals[1]),
         p: parseInt(vals[2])
@@ -159,7 +174,7 @@ function addScoreToPlayer() {
                 && players[i].score.building >= players[i].score.defense) {
                 players[i].type = "building";
             } else if (players[i].score.fleet >= players[i].score.building
-            && players[i].score.fleet >= players[i].score.defense) {
+                && players[i].score.fleet >= players[i].score.defense) {
                 players[i].type = "fleet";
             } else {
                 players[i].type = 'defense';
@@ -202,7 +217,7 @@ function calculationGalaxyPop() {
                 totalPercent: 0,
                 totalI: 0,
                 galaxyPercentI: 0,
-                totalPercentI: 0,
+                totalPercentI: 0
             });
             min += 100;
             max += 100;
@@ -242,13 +257,13 @@ function parseCollectedData(db, callbacks) {
     createPlanets();
     addScoreToPlayer();
     addInactifStatusToPlayer();
-    Tools.log("[server][DONE] parse Data", Tools.colors.FG_MAGENTA);
+    Log.log("[server][DONE] parse Data", Log.colors.FG_MAGENTA);
     launchCallback(db, callbacks);
 }
 
 function calculationUtilsData(db, callbacks) {
     calculationGalaxyPop();
-    Tools.log("[server][DONE] calculation with Data", Tools.colors.FG_MAGENTA);
+    Log.log("[server][DONE] calculation with Data", Log.colors.FG_MAGENTA);
     launchCallback(db, callbacks);
 }
 
@@ -256,7 +271,7 @@ exports.parseData = function () {
     var file = "../data/data.db";
     var exists = fs.existsSync(file);
     var db = new sqlite3.Database(file);
-    Tools.log("[server] DataBase available", Tools.colors.FG_CYAN);
+    Log.log("[server] DataBase available", Log.colors.FG_CYAN);
     if (exists) {
         collectGalaxy(db, [collectInactif, collectScore, parseCollectedData, calculationUtilsData]);
     }

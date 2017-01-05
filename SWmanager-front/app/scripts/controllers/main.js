@@ -26,6 +26,7 @@ angular.module('SWmanagerApp')
         if (User.getPlayer() == null) {
           RequestAPI.GET("/player", SubmitResult.submitSuccess(function (response) {
               User.connect(response.data.player);
+            $scope.initUserDetail();
             }),
             SubmitResult.submitFailure(), {pseudo: User.getLogin()});
         }

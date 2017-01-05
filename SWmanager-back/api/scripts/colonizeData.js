@@ -3,56 +3,8 @@
  */
 
 var dataManager = require('./dataManager');
-var Tools = require('./Tools');
-
-function isTrue(value) {
-    return value == 'true';
-}
-
-function getDifferenceLevel(v1, v2) {
-    var percent = 20;
-    var point1 = parseFloat(v1);
-    var point2 = parseFloat(v2);
-
-    if (point1 < 10000000000000) {
-        percent = 80
-    } else if (point1 < 100000000000000) {
-        percent = 50;
-    }
-    if ((point1 + (point1 * percent / 100)) < point2) {
-        return "lower";
-    } else if ((point1 - (point1 * percent / 100)) > point2) {
-        return "higher";
-    } else {
-        return "medium";
-    }
-}
-
-function getPlayerLevel(player, type, requirements) {
-    if (type == 'null') {
-        return getDifferenceLevel(requirements.scoreTotal, player.score.total);
-    } else if (type == 'building') {
-        return getDifferenceLevel(requirements.scoreBuilding, player.score.building);
-    } else if (type == 'fleet') {
-        return getDifferenceLevel(requirements.scoreFleet, player.score.fleet);
-    } else if (type == 'defense') {
-        return getDifferenceLevel(requirements.scoreDefense, player.score.defense);
-    }
-    return 'null';
-}
-
-function isPlanetAvailable(planet, requirements) {
-    if (requirements.type == 'null') {
-        return getPlayerLevel(planet.player, 'null', requirements) == requirements.level;
-    }
-    else if (planet.player.type == requirements.type) {
-        if (requirements.level == 'null') {
-            return true;
-        }
-        return getPlayerLevel(planet.player, requirements.type, requirements) == requirements.level;
-    }
-    return false;
-}
+var PlanetUtils = require('./tools/planetUtils');
+var Tools = require('./tools/Tools');
 
 function createNewGalaxyWithRestriction(requirements) {
     var galaxyPop = {};
@@ -87,7 +39,7 @@ function createNewGalaxyWithRestriction(requirements) {
     }
     // parse planets
     for (var i = 0; i < planets.length; ++i) {
-        if (isPlanetAvailable(planets[i], requirements)) {
+        if (PlanetUtils.isPlanetAvailable(planets[i], requirements)) {
             galaxyPop['galaxy_' + planets[i].position.g].total += 1;
             for (var i2 = 0; i2 < galaxyPop['galaxy_' + planets[i].position.g].systems.length; ++i2) {
                 if (planets[i].position.s >= galaxyPop['galaxy_' + planets[i].position.g].systems[i2].min
@@ -199,7 +151,7 @@ function getSystemLessPeople(galaxy, inactif) {
 }
 
 exports.findBest = function (requirements, callback) {
-    var galaxy = Tools.cloneObject(dataManager.getGalaxyPop());
+    var galaxy = dataManager.getGalaxyPop();
     var result = null;
     var err = true;
 
@@ -213,7 +165,7 @@ exports.findBest = function (requirements, callback) {
         if (requirements.type != 'null' || requirements.level != 'null') {
             galaxy = createNewGalaxyWithRestriction(requirements)
         }
-        if (isTrue(requirements.people)) {
+        if (Tools.isTrue(requirements.people)) {
             result = getSystemMostPeople(galaxy, requirements.inactif);
         } else {
             result = getSystemLessPeople(galaxy, requirements.inactif);

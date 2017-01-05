@@ -13,5 +13,5 @@ angular.module('SWmanagerApp')
       restrict: 'A',
       templateUrl: "views/widget/planetsWidget.html",
       controller: "PlanetsWidgetCtrl"
-    }
+    };
   });

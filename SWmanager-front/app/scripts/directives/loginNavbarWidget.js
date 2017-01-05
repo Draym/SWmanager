@@ -12,5 +12,5 @@ angular.module('SWmanagerApp')
       restrict: 'A',
       templateUrl: "views/login/loginNavbarWidget.html",
       controller: "LoginCtrl"
-    }
+    };
   });

@@ -4,6 +4,7 @@
     "pseudo": "",
     "planets": [
       {
+        "full": "1:1:1",
         "g": 1,
         "s": 1,
         "p": 1
@@ -11,6 +12,7 @@
     ],
     "moons": [
       {
+        "full": "1:1:1",
         "g": 1,
         "s": 1,
         "p": 1
@@ -23,12 +25,14 @@
       "defense": 0,
       "fleet": 0
     },
-    "inactif": false
+    "inactif": false,
+    "type": ""
   },
   /** PLANET **/
 
   "planet": {
     "position": {
+      "full": "1:1:1",
       "g": 1,
       "s": 1,
       "p": 1
@@ -46,37 +50,52 @@
         {
           "min": 0,
           "max": 100,
-          "total": 10,
-          "galaxyPercent": 18,
-          "totalPercent": 10
+          "total": 0,
+          "galaxyPercent": 0,
+          "totalPercent": 0,
+          "totalI": 0,
+          "galaxyPercentI": 0,
+          "totalPercentI": 0
         },
         {
           "min": 100,
           "max": 200,
-          "total": 10,
-          "galaxyPercent": 18,
-          "totalPercent": 10
+          "total": 0,
+          "galaxyPercent": 0,
+          "totalPercent": 0,
+          "totalI": 0,
+          "galaxyPercentI": 0,
+          "totalPercentI": 0
         },
         {
           "min": 200,
           "max": 300,
-          "total": 19,
-          "galaxyPercent": 18,
-          "totalPercent": 10
+          "total": 0,
+          "galaxyPercent": 0,
+          "totalPercent": 0,
+          "totalI": 0,
+          "galaxyPercentI": 0,
+          "totalPercentI": 0
         },
         {
           "min": 300,
           "max": 400,
-          "total": 5,
-          "galaxyPercent": 18,
-          "totalPercent": 10
+          "total": 0,
+          "galaxyPercent": 0,
+          "totalPercent": 0,
+          "totalI": 0,
+          "galaxyPercentI": 0,
+          "totalPercentI": 0
         },
         {
           "min": 400,
           "max": 499,
-          "total": 10,
-          "galaxyPercent": 18,
-          "totalPercent": 10
+          "total": 0,
+          "galaxyPercent": 0,
+          "totalPercent": 0,
+          "totalI": 0,
+          "galaxyPercentI": 0,
+          "totalPercentI": 0
         }
       ]
     },

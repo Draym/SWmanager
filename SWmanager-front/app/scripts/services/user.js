@@ -35,7 +35,7 @@ angular.module('SWmanagerApp')
     }
 
     function disconnect() {
-      $cookies.remove(idPlayerLogin)
+      $cookies.remove(idPlayerLogin);
     }
 
     // Public API here

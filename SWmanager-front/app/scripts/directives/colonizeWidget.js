@@ -13,5 +13,5 @@ angular.module('SWmanagerApp')
       restrict: 'A',
       templateUrl: "views/widget/colonizeWidget.html",
       controller: "ColonizeWidgetCtrl"
-    }
+    };
   });

@@ -1,1 +1,234 @@
-<div></div>
+<div>
+  <div class="row">
+    <div data-ng-class="{'col-lg-6' : resultAvailable == true, 'col-lg-12': resultAvailable != true}">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Search the best targets for your next raid
+          <i class="fa fa-info-circle pull-right" style="font-size: 150%; color: #31b0d5" aria-hidden="true"
+             data-ng-click="openHelp()"></i>
+        </div>
+        <!-- /.panel-heading -->
+
+        <div class="panel-body">
+
+          <div class="row col-md-12">
+            <div class="modal-header" style="border-bottom: none">Select one of your planet</div>
+            <div class="modal-body" style="display: flex">
+              <div data-ng-class="{'col-md-4': resultAvailable == true, 'col-md-2': resultAvailable == false}">
+                <label class="sr-only" for="selectP"></label>
+                <select name="selectG" id="selectP" class="form-control"
+                        data-ng-model="choice.planet"
+                        data-ng-init="choice.planet = user.planets[0]"
+                        data-ng-options="current as current.full for current in user.planets">
+                </select>
+              </div>
+            </div>
+            <div class="modal-footer"></div>
+          </div>
+          <div class="row col-md-12">
+            <div class="modal-header" style="border-bottom: none">Select the distances</div>
+            <div class="modal-body" style="display: flex">
+              <div class="row col-md-12">
+                <div class="row col-md-12">
+                  <div class="form-inline" style="padding-left: 5px; margin-bottom: 10px">
+                    <label for="minDist">Distance Min : </label>
+                    <input type="number" id="minDist" class="form-control"
+                           data-ng-model="choice.minDist" placeholder="distance minimal">
+                  </div>
+                </div>
+                <div class="row col-md-12">
+                  <div class="form-inline" style="padding-left: 5px; margin-bottom: 10px">
+                    <label for="maxDist">Distance Max : </label>
+                    <input type="number" id="maxDist" class="form-control"
+                           data-ng-model="choice.maxDist" placeholder="distance maximal">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer"></div>
+          </div>
+          <div class="row col-md-12">
+            <div class="modal-header" style="border-bottom: none">Select the type</div>
+            <div class="modal-body" style="display: flex">
+              <div class="col-md-12">
+                <div class="row row-list">
+                  <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-default btn-noEvent"
+                           data-ng-click="choice.inactif = 'null'">
+                      <input type="radio" name="options" autocomplete="off"> Type of Player ?
+                    </label>
+                    <label class="btn btn-info"
+                           data-ng-click="choice.inactif = 'false'">
+                      <input type="radio" name="options" autocomplete="off"> Actif
+                    </label>
+                    <label class="btn btn-grey"
+                           data-ng-click="choice.inactif ='true'">
+                      <input type="radio" name="options" autocomplete="off"> Inactif
+                    </label>
+                  </div>
+                </div>
+                <div class="row row-list">
+                  <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-default btn-noEvent"
+                           data-ng-click="choice.type = 'null'">
+                      <input type="radio" name="options" autocomplete="off"> Strengh of Player ?
+                    </label>
+                    <label class="btn btn-primary"
+                           data-ng-click="choice.type = 'building'">
+                      <input type="radio" name="options" autocomplete="off"> Builder
+                    </label>
+                    <label class="btn btn-warning"
+                           data-ng-click="choice.type = 'defense'">
+                      <input type="radio" name="options" autocomplete="off"> Bunker
+                    </label>
+                    <label class="btn btn-danger"
+                           data-ng-click="choice.type = 'fleet'">
+                      <input type="radio" name="options" autocomplete="off"> Raider
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer"></div>
+          </div>
+          <div class="row col-md-12">
+            <div class="modal-header" style="border-bottom: none">Select the level</div>
+            <div class="modal-body" style="display: flex">
+              <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-default btn-noEvent"
+                       data-ng-click="choice.level = 'null'">
+                  <input type="radio" name="options" autocomplete="off"> Player Score ?
+                </label>
+                <label class="btn btn-grey"
+                       data-ng-click="choice.level = 'lower'">
+                  <input type="radio" name="options" autocomplete="off"> Lower
+                </label>
+                <label class="btn btn-info"
+                       data-ng-click="choice.level = 'medium'">
+                  <input type="radio" name="options" autocomplete="off"> Medium
+                </label>
+                <label class="btn btn-warning"
+                       data-ng-click="choice.level = 'higher'">
+                  <input type="radio" name="options" autocomplete="off"> Higher
+                </label>
+              </div>
+            </div>
+            <div class="modal-footer"></div>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <button class="btn btn-info" data-ng-disabled="!isSearchFormValid() || isBusy"
+                  data-ng-click="doResearch()">
+            <i class="fa fa-cogs" aria-hidden="true"></i> Launch the research
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6" data-ng-if="resultAvailable == true">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Result available
+          <button type="button" class="close" aria-hidden="true"
+                  data-ng-click="openResultAvailable()">&times;</button>
+        </div>
+        <!-- /.panel-heading -->
+
+        <div class="panel-body">
+          <div class="modal-header">
+            <div class="row">
+              <h4>According to your research, we propose this targets to you :</h4>
+            </div>
+            <div class="row">
+              <h3>--> <span style="color: #2e6da4; font-size: 140%">{{researchPlanets.planets.length}}</span> planets
+                find</h3>
+            </div>
+          </div>
+          <div class="modal-body">
+            <h4>Here are the details</h4>
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                  <th>Variable</th>
+                  <th>value</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <!-- CHOICE -->
+                <tr data-ng-if="researchPlanets.requirements.type != 'null'">
+                  <td>Player target</td>
+                  <td data-ng-if="researchPlanets.requirements.type == 'building'">Builder</td>
+                  <td data-ng-if="researchPlanets.requirements.type == 'fleet'">Raider</td>
+                  <td data-ng-if="researchPlanets.requirements.type == 'defense'">Bunker</td>
+                </tr>
+                <tr data-ng-if="researchPlanets.requirements.level != 'null'">
+                  <td>Player target</td>
+                  <td>{{researchPlanets.requirements.level}}</td>
+                </tr>
+                <tr>
+                  <td>Distance min</td>
+                  <td>{{researchPlanets.requirements.minDist}}</td>
+                </tr>
+                <tr>
+                  <td>Distance max</td>
+                  <td>{{researchPlanets.requirements.maxDist}}</td>
+                </tr>
+                <!-- DATA PARSED -->
+                <tr>
+                  <td>Galaxy parsed</td>
+                  <td>{{researchPlanets.galaxyParsed}}</td>
+                </tr>
+                <tr>
+                  <td>Total planet parsed</td>
+                  <td>{{researchPlanets.planetsParsed}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <h4>Here are the position</h4>
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+              <tr>
+                <th style="width: 40%">Position</th>
+                <th style="width: 30%">Owner</th>
+              </tr>
+              </thead>
+              <tfoot>
+              <td colspan="6">
+                <div class="pagination pull-right">
+                  <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-primary active"
+                           data-ng-class="{disabled: firstPage()}"
+                           data-ng-click="prevPage()">
+                      <input type="radio" name="options" id="prev" autocomplete="off"> Prev
+                    </label>
+                    <label class="btn btn-primary active">
+                      <input type="radio" name="options" id="current" autocomplete="off"> {{currentPage + 1}}
+                    </label>
+                    <label class="btn btn-primary active"
+                           data-ng-class="{disabled: lastPage()}"
+                           data-ng-click="nextPage()">
+                      <input type="radio" name="options" id="next" autocomplete="off"> Next
+                    </label>
+                  </div>
+                </div>
+              </td>
+              </tfoot>
+              <tbody>
+              <tr data-ng-repeat="planet in pagedItems[currentPage] track by $index"
+                  data-ng-click="detailPlayer(planet.player)">
+                <td>{{planet.position.g}} : {{planet.position.s}} : {{planet.position.p}}</td>
+                <td>{{planet.player.pseudo}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

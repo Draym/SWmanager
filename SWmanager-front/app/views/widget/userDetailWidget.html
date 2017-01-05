@@ -1,0 +1,49 @@
+<div data-ng-if="user">
+  <h3 style="margin-top: 5px; margin-left: 5px"><a><i class="fa fa-user-circle-o fa-fw"></i> Profile :</a> {{user.pseudo}}</h3>
+  <div class="modal-body">
+    <!-- PLAYER STAT -->
+    <h4>Player stats</h4>
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+          <th>Type</th>
+          <th>Score</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Total</td>
+          <td>{{user.score.total}}</td>
+        </tr>
+        <tr>
+          <td>Building</td>
+          <td>{{user.score.building}}</td>
+        </tr>
+        <tr>
+          <td>Defense</td>
+          <td>{{user.score.defense}}</td>
+        </tr>
+        <tr>
+          <td>Fleet</td>
+          <td>{{user.score.fleet}}</td>
+        </tr>
+        </tbody>
+        </table>
+      </div>
+
+    <!-- PLANETS -->
+    <h4>Planets</h4>
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <tbody>
+        <tr data-ng-repeat="planet in user.planets track by $index">
+          <td>{{planet.g}}</td>
+          <td>{{planet.s}}</td>
+          <td>{{planet.p}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
+</div>

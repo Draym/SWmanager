@@ -13,5 +13,5 @@ angular.module('SWmanagerApp')
       restrict: 'A',
       templateUrl: "views/widget/playersWidget.html",
       controller: "PlayersWidgetCtrl"
-    }
+    };
   });

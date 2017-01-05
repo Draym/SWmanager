@@ -142,8 +142,8 @@ angular.module('SWmanagerApp')
 
     $scope.detailPlayer = function (player) {
       var modalInstance = $uibModal.open({
-        templateUrl: 'views/modal/detailPlayerModal.html',
-        controller: 'DetailPlayerModalCtrl',
+        templateUrl: 'views/modal/playerDetailModal.html',
+        controller: 'PlayerDetailModalCtrl',
         size: 'lg',
         resolve: {
           Parent: function () {

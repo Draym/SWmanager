@@ -46,38 +46,32 @@ function getBestNewPositionWithAll(hasPeople) {
 }
 
 /*** EXTERNAL GET ***/
-exports.findByPos = function(login, callback) {
-    var planets = dataManager.getPlanets();
-    var result = null;
-    var err = true;
 
-    if (planets) {
-        for (var i = 0; i < planets.length; ++i) {
-            if (planets[i].login == login) {
-                result = planets[i];
-                err = null;
-                break;
-            }
-        }
+exports.findByPos = function (full, callback) {
+    var err = true;
+    var result = dataManager.findPlanet(full);
+
+    if (result != null) {
+        err = null;
     }
     callback(err, result);
 };
 
-exports.find = function(callback) {
+exports.find = function (callback) {
     var result = dataManager.getPlanets();
     var err = null;
 
-    if (!result|| result.length == 0) {
+    if (!result || result.length == 0) {
         err = true;
     }
     callback(err, result);
 };
 
-exports.getPop = function(callback) {
+exports.getPop = function (callback) {
     callback(null, dataManager.getGalaxyPop())
 };
 
-exports.getBestNewPosition = function(requirements, callback) {
+exports.getBestNewPosition = function (requirements, callback) {
     if (requirements.g != 0) {
         callback(null, getBestNewPositionByG(requirements.g, requirements.hasPeople));
     } else {
