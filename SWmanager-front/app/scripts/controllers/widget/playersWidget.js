@@ -103,6 +103,7 @@ angular.module('SWmanagerApp')
     };
 
     $scope.parseUnparsedPlayers = function () {
+      $scope.currentPage = 0;
       $scope.players = CloneUtilsCustom.cloneArray($scope.unparsedPlayers);
 
       parseByPseudo();

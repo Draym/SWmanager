@@ -125,6 +125,7 @@ angular.module('SWmanagerApp')
     };
 
     $scope.parseUnparsedPlanets = function () {
+      $scope.currentPage = 0;
       $scope.planets = CloneUtilsCustom.cloneArray($scope.unparsedPlanets);
 
       parseByG();
