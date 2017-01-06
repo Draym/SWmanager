@@ -41,7 +41,7 @@ router.get('/getPop', function (req, res, next) {
 });
 
 /*
-    requirements : {g: 0->6, hasPeople: true/false || safe: true/false || offensive: true/false}
+ ** Deprecated use Colonize/findBest now
  */
 router.get('/getBestNewPosition', function (req, res, next) {
     Planet.getBestNewPosition(req.query.requirements, function (err, system) {

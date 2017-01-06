@@ -58,7 +58,7 @@ angular.module('SWmanagerApp')
 
     /*** FUNCTIONS ***/
 
-    $scope.openResultAvailable = function() {
+    $scope.openResultAvailable = function () {
       $scope.resultAvailable = !$scope.resultAvailable;
     };
 
