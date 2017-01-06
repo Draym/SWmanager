@@ -28,7 +28,9 @@ angular.module('SWmanagerApp')
               User.connect(response.data.player);
               $scope.initUserDetail();
             }),
-            SubmitResult.submitFailure(), {pseudo: User.getLogin()});
+            SubmitResult.submitFailure(function() {
+              $location.path("/login");
+            }), {pseudo: User.getLogin()});
         }
       } else {
         $location.path("/login");

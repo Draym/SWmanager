@@ -10,6 +10,7 @@
 angular.module('SWmanagerApp')
   .controller('LoginCtrl', function ($scope, $location, toaster, RequestAPI, User, SubmitResult) {
     $scope.isBusy = false;
+    $scope.info = false;
 
     $scope.loginPageLocation = function () {
       return $location.path() == "/login";
@@ -23,9 +24,11 @@ angular.module('SWmanagerApp')
           $scope.initUserDetail();
           $location.path("/");
           $scope.isBusy = false;
+          $scope.info = false;
         }, "Connected"),
         SubmitResult.submitFailure(function (response) {
           $scope.isBusy = false;
+          $scope.info = true;
         }, "Connexion Failed"), {pseudo: $scope.pseudo});
     };
 
