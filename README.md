@@ -1,24 +1,33 @@
 # SWmanager
 
-#Installaton
+-------------------------------------------------------------------------------------------  
+## Installation:  
+-------------------------------------------------------------------------------------------  
+Be sure to have NodeJS installed in your computer for using npm.  
 
-Be sure to have NodeJS installed in your computer for using npm.
+-Front Project  
+npm install  
+bower install  
 
+-Back Project  
+npm install  
 
-enter this commands in each folder :  
-npm install && bower install
-
-
-Maybe you will have to install grunt and bower :
+Maybe you will have to install grunt and bower :  
 
 npm install grunt  
 npm install bower  
 npm install bower-cli  
 npm install grunt-cli  
 
-#Front project
-grunt serve
+-------------------------------------------------------------------------------------------  
+## Launch:  
+-------------------------------------------------------------------------------------------  
 
-#Back project
-cd ./api  
-nodemon bin/www
+-Front project  
+cd SWmanager-front  
+grunt serve  
+
+
+-Back project  
+cd SWmanager-back/api  
+nodemon bin/www  
