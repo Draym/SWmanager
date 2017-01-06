@@ -53,7 +53,6 @@
     "minimatch": "^3.0.2",
     "reflect-metadata": "^0.1.2",
     "rxjs": "^5.0.0-beta.12",
-    "ui-router-ng2": "^1.0.0-beta.3",
-    "zone.js": "^0.6.26"
+    "ui-router-ng2": "^1.0.0-beta.3"
   }
 }
