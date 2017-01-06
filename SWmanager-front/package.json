@@ -42,17 +42,15 @@
     "test": "karma start test\\karma.conf.js"
   },
   "dependencies": {
-    "@angular/common": "^2.0.0",
-    "@angular/compiler": "^2.0.0",
-    "@angular/core": "^2.2.4",
-    "@angular/forms": "^2.0.0",
+    "@angular/core": "^2.0.0-rc.5",
     "chart.js": "^2.4.0",
     "es6-shim": "^0.35.0",
     "grunt-cli": "^1.2.0",
     "jquery": "^3.1.1",
     "minimatch": "^3.0.2",
     "reflect-metadata": "^0.1.2",
-    "rxjs": "^5.0.0-beta.12",
-    "ui-router-ng2": "^1.0.0-beta.3"
+    "rxjs": "^5.0.0-beta.6",
+    "ui-router-ng2": "^1.0.0-beta.3",
+    "zone.js": "^0.7.2"
   }
 }
