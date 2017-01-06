@@ -13,7 +13,7 @@ angular.module('SWmanagerApp')
     $scope.mode = 0;
     $scope.hover = 0;
 
-    $scope.changeMode = function(value) {
+    $scope.changeMode = function (value) {
       if ($scope.mode == value) {
         $scope.mode = 0;
       } else {
@@ -26,7 +26,7 @@ angular.module('SWmanagerApp')
         if (User.getPlayer() == null) {
           RequestAPI.GET("/player", SubmitResult.submitSuccess(function (response) {
               User.connect(response.data.player);
-            $scope.initUserDetail();
+              $scope.initUserDetail();
             }),
             SubmitResult.submitFailure(), {pseudo: User.getLogin()});
         }

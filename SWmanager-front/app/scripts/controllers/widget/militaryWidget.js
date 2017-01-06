@@ -127,8 +127,8 @@ angular.module('SWmanagerApp')
 
     $scope.openHelp = function () {
       var modalInstance = $uibModal.open({
-        templateUrl: 'views/help/helpColonizeModal.html',
-        controller: 'HelpColonizeModalCtrl',
+        templateUrl: 'views/help/helpMilitaryModal.html',
+        controller: 'HelpMilitaryModalCtrl',
         size: 'lg'
       });
     };

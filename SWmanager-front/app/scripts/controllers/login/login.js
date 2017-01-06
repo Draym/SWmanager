@@ -20,6 +20,7 @@ angular.module('SWmanagerApp')
       RequestAPI.GET("/player",
         SubmitResult.submitSuccess(function (response) {
           User.connect(response.data.player);
+          $scope.initUserDetail();
           $location.path("/");
           $scope.isBusy = false;
         }, "Connected"),

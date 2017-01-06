@@ -9,7 +9,4 @@
  */
 angular.module('SWmanagerApp')
   .controller('AboutCtrl', function ($scope, User) {
-    $scope.removeCookies = function () {
-      User.disconnect();
-    };
   });

@@ -1,5 +1,6 @@
 <div data-ng-if="user">
-  <h3 style="margin-top: 5px; margin-left: 5px"><a><i class="fa fa-user-circle-o fa-fw"></i> Profile :</a> {{user.pseudo}}</h3>
+  <h3 style="margin-top: 5px; margin-left: 5px"><a><i class="fa fa-user-circle-o fa-fw"></i> Profile :</a>
+    {{user.pseudo}}</h3>
   <div class="modal-body">
     <!-- PLAYER STAT -->
     <h4>Player stats</h4>
@@ -29,8 +30,8 @@
           <td>{{user.score.fleet}}</td>
         </tr>
         </tbody>
-        </table>
-      </div>
+      </table>
+    </div>
 
     <!-- PLANETS -->
     <h4>Planets</h4>
@@ -45,5 +46,9 @@
         </tbody>
       </table>
     </div>
-    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary btn-sm pull-right" data-ng-click="disconnect()"><span
+      class="glyphicon glyphicon-log-out" style="margin-right: 4px"></span><b>Disconnect</b></button>
+  </div>
 </div>

@@ -9,7 +9,13 @@
  * Controller of the SWmanagerApp
  */
 angular.module('SWmanagerApp')
-  .controller('UserDetailWidgetCtrl', function ($scope, User) {
+  .controller('UserDetailWidgetCtrl', function ($scope, $location, User) {
+
+    $scope.disconnect = function() {
+      User.disconnect();
+      $scope.user = null;
+      $location.path("/login")
+    };
 
     $scope.initUserDetail = function() {
       $scope.user = User.getPlayer();
