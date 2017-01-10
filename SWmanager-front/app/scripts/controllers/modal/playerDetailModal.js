@@ -9,7 +9,7 @@
  * Controller of the SWmanagerApp
  */
 angular.module('SWmanagerApp')
-  .controller('PlayerDetailModalCtrl', function ($scope, Parent, $uibModalInstance) {
+  .controller('PlayerDetailModalCtrl', function ($scope, Parent, $uibModalInstance, OperationManager) {
 
     $scope.quit = function() {
       $uibModalInstance.dismiss('cancel');
@@ -17,6 +17,10 @@ angular.module('SWmanagerApp')
 
     $scope.initPlayerDetail = function() {
       $scope.player = Parent.player;
+    };
+
+    $scope.addToCurrent = function() {
+      OperationManager.addToCurrent($scope.player.planets);
     };
 
     $scope.initPlayerDetail();

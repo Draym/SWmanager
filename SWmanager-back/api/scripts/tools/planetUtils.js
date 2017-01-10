@@ -17,9 +17,9 @@ function getDifferenceLevel(v1, v2) {
         percent = 50;
     }
     if ((point1 + (point1 * percent / 100)) < point2) {
-        return "lower";
-    } else if ((point1 - (point1 * percent / 100)) > point2) {
         return "higher";
+    } else if ((point1 - (point1 * percent / 100)) > point2) {
+        return "lower";
     } else {
         return "medium";
     }

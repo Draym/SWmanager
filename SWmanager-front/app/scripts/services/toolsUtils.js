@@ -34,6 +34,16 @@ angular.module('SWmanagerApp')
       }
     }
   })
+  .factory('StorageUtils', function () {
+    return {
+      read: function(fileName) {
+        return localStorage[fileName];
+      },
+      write: function(fileName, content) {
+        localStorage[fileName] = content;
+      }
+    }
+  })
   .factory('CloneUtilsCustom', function () {
     var lightClone = function (object) {
       return jQuery.extend({}, object);

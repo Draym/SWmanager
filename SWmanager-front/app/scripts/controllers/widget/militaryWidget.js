@@ -9,7 +9,7 @@
  * Controller of the SWmanagerApp
  */
 angular.module('SWmanagerApp')
-  .controller('MilitaryWidgetCtrl', function ($scope, $timeout, $uibModal, toaster, SubmitResult, RequestAPI, User, CloneUtilsCustom) {
+  .controller('MilitaryWidgetCtrl', function ($scope, $timeout, $uibModal, toaster, SubmitResult, RequestAPI, User, CloneUtilsCustom, OperationManager) {
 
     $scope.isBusy = false;
     $scope.resultAvailable = false;
@@ -107,6 +107,15 @@ angular.module('SWmanagerApp')
     };
 
     /*** FUNCTIONS ***/
+
+    $scope.addToCurrent = function() {
+      var values = [];
+
+      for (var i = 0; i < $scope.extractedPlanets.length; ++i) {
+        values.push($scope.extractedPlanets[i].position);
+      }
+      OperationManager.addToCurrent(values);
+    };
 
     $scope.openResultAvailable = function () {
       $scope.resultAvailable = !$scope.resultAvailable;

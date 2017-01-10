@@ -1,0 +1,131 @@
+<div class="modal-header">
+  <h3 style="margin-top: 5px; margin-left: 5px"><a><i class="fa fa-player-circle-o fa-fw"></i> Current Operations :</a>
+    <button type="button" class="close" aria-hidden="true"
+            data-ng-click="quit()">&times;</button>
+  </h3>
+</div>
+<div class="modal-body" style="display: flex">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4>Operation
+              <button class="btn btn-info pull-right" data-ng-click="saveCurrent()"
+                      style="margin-left: 1px">
+                <i class="fa fa-save" aria-hidden="true"></i>
+              </button>
+            </h4>
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-inline" style="padding-left: 5px; margin-bottom: 10px">
+                  <label for="name">Name: </label>
+                  <input type="text" name="path" id="name" class="form-control"
+                         value="" data-ng-model="currentOperation.name" placeholder="name"
+                         data-ng-change="changeName = true" style="margin-left: 10px">
+                  <i class="fa fa-check-square-o" aria-hidden="true" data-ng-show="!changeName"
+                     style="color:#5cb85c"></i>
+                  <i class="fa fa-square-o" aria-hidden="true" data-ng-show="changeName"
+                     data-ng-click="updateCurrentConf(1)" style="color:#d9534f"></i>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-inline" style="padding-left: 5px; margin-bottom: 10px">
+                  <label for="description">Description : </label>
+                  <input type="text" name="path" id="description" class="form-control"
+                         value="" data-ng-model="currentOperation.description" placeholder="description"
+                         data-ng-change="changeDesc = true" style="margin-left: 10px">
+                  <i class="fa fa-check-square-o" aria-hidden="true" data-ng-show="!changeDesc"
+                     style="color:#5cb85c"></i>
+                  <i class="fa fa-square-o" aria-hidden="true" data-ng-show="changeDesc"
+                     data-ng-click="updateCurrentConf(2)" style="color:#d9534f"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-7">
+        <!-- PLANETS -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4>Planets
+              <button class="btn btn-danger pull-right" data-ng-click="removeAll()"
+                      style="margin-left: 1px">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+              </button>
+            </h4>
+          </div>
+          <div class="panel-body">
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered" style="margin-bottom: 0">
+                <tbody>
+                <tr data-ng-repeat="op in currentOperation.ops track by $index"
+                    data-ng-show="isInCurrentPage($index)">
+                  <td class="col-md-1">{{op.planet.g}}</td>
+                  <td class="col-md-1">{{op.planet.s}}</td>
+                  <td class="col-md-1">{{op.planet.p}}</td>
+                  <td class="col-md-7" data-ng-click="setFocus($index)">
+                    <div data-ng-if="focused == $index">
+                      <form role="form" data-ng-submit="saveOp(op)">
+                        <input type="text" class="form-control"
+                               data-ng-model="op.planet.description" placeholder="description">
+                      </form>
+                    </div>
+                    <div data-ng-if="focused != $index">{{op.planet.description}}</div>
+                  </td>
+                  <td class="col-md-1">
+                    <i class="fa fa-remove pull-right" aria-hidden="true" data-ng-click="removeOp(op)"
+                       style="color: #c9302c"></i></td>
+                </tr>
+                </tbody>
+              </table>
+              <div class="pagination pull-right">
+                <div class="btn-group" data-toggle="buttons">
+                  <label class="btn btn-primary active"
+                         data-ng-class="{disabled: firstPage()}"
+                         data-ng-click="prevPage()">
+                    <input type="radio" name="options" id="prev" autocomplete="off"> Prev
+                  </label>
+                  <label class="btn btn-primary active">
+                    <input type="radio" name="options" id="current" autocomplete="off"> {{currentPage + 1}}
+                  </label>
+                  <label class="btn btn-primary active"
+                         data-ng-class="{disabled: lastPage()}"
+                         data-ng-click="nextPage()">
+                    <input type="radio" name="options" id="next" autocomplete="off"> Next
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <!-- PLANETS -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4>Script
+              <button class="btn btn-success pull-right" data-ng-click="transformToScript()"
+                      style="margin-left: 1px">
+                <i class="fa fa-terminal" aria-hidden="true"></i>
+              </button>
+            </h4>
+          </div>
+          <div class="panel-body">
+            <textarea class="form-control" style="height: 391px; resize: vertical" data-ng-model="script"
+                      data-ng-show="script"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer"></div>

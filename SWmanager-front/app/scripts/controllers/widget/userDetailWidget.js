@@ -9,7 +9,20 @@
  * Controller of the SWmanagerApp
  */
 angular.module('SWmanagerApp')
-  .controller('UserDetailWidgetCtrl', function ($scope, $location, User) {
+  .controller('UserDetailWidgetCtrl', function ($scope, $location, $uibModal, User) {
+
+    /*** FUNCTION ***/
+    $scope.openCurrentModal = function () {
+      var modalInstance = $uibModal.open({
+        templateUrl: 'views/modal/currentOperations.html',
+        controller: 'CurrentOperationsModalCtrl',
+        size: 'lg'
+      });
+    };
+
+    $scope.openOperations = function() {
+      $location.path("/operations")
+    };
 
     $scope.disconnect = function() {
       User.disconnect();
