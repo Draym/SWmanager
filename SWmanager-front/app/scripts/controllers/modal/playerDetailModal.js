@@ -9,7 +9,7 @@
  * Controller of the SWmanagerApp
  */
 angular.module('SWmanagerApp')
-  .controller('PlayerDetailModalCtrl', function ($scope, Parent, $uibModalInstance, OperationManager) {
+  .controller('PlayerDetailModalCtrl', function ($scope, Parent, $uibModalInstance, OperationManager, StringUtilsCustom) {
 
     $scope.quit = function() {
       $uibModalInstance.dismiss('cancel');
@@ -21,6 +21,10 @@ angular.module('SWmanagerApp')
 
     $scope.addToCurrent = function() {
       OperationManager.addToCurrent($scope.player.planets);
+    };
+
+    $scope.beautyNumber = function (number) {
+      return StringUtilsCustom.beautyNumber(number);
     };
 
     $scope.initPlayerDetail();

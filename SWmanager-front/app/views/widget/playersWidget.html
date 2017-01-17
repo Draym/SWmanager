@@ -15,7 +15,7 @@
                    value="" data-ng-model="searchPlayer" placeholder="player">
           </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-3">
           <div class="btn-group" data-toggle="buttons">
             <label class="btn btn-default" disabled>
               <input type="radio" name="options" id="menu" autocomplete="off"> Sort by
@@ -33,6 +33,14 @@
               <input type="radio" name="options" id="sortDESC" autocomplete="off"> DESC
             </label>
           </div>
+        </div>
+        <div class="col-md-2" data-ng-show="sortByScoreMode">
+          <label class="sr-only" for="selectS"></label>
+          <select name="selectG" id="selectS" class="form-control"
+                  data-ng-model="currentSortScore"
+                  data-ng-options="current as current for current in sortScore"
+                  data-ng-change="parseUnparsedPlayers()">
+          </select>
         </div>
       </div>
       <div class="row">
@@ -71,7 +79,12 @@
                 data-ng-click="detailPlayer(player)">
               <td>{{player.index + 1}}</td>
               <td>{{player.pseudo}}<span class="title-info" data-ng-if="player.inactif">(I)</span></td>
-              <td>{{player.score.total}}</td>
+              <td>
+                <span data-ng-if="currentSortScore == 'total'">{{beautyNumber(player.score.total)}}</span>
+                <span data-ng-if="currentSortScore == 'fleet'">{{beautyNumber(player.score.fleet)}}</span>
+                <span data-ng-if="currentSortScore == 'building'">{{beautyNumber(player.score.building)}}</span>
+                <span data-ng-if="currentSortScore == 'defense'">{{beautyNumber(player.score.defense)}}</span>
+              </td>
             </tr>
             </tbody>
           </table>

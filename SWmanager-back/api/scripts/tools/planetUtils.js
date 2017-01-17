@@ -11,17 +11,22 @@ function getDifferenceLevel(v1, v2) {
     var point1 = parseFloat(v1);
     var point2 = parseFloat(v2);
 
-    if (point1 < 10000000000000) {
+    if (point2 < 1000000000000) {
+        return "null";
+    }
+    if (point1 < 80000000000000) {
         percent = 80
-    } else if (point1 < 100000000000000) {
+    } else if (point1 < 200000000000000) {
         percent = 50;
     }
     if ((point1 + (point1 * percent / 100)) < point2) {
         return "higher";
     } else if ((point1 - (point1 * percent / 100)) > point2) {
         return "lower";
+    } else if (point1 < point2){
+        return "mediumPlus";
     } else {
-        return "medium";
+        return "mediumLow";
     }
 }
 

@@ -29,11 +29,11 @@ angular.module('SWmanagerApp')
       return -1;
     }
 
-    function planetInOperations(name, planet) {
+    function planetInOperations(name, op) {
       for (var i = 0; i < operations.length; ++i) {
         if (operations[i].name == name) {
           for (var i2 = 0; i2 < operations[i].ops.length; ++i2) {
-            if (operations[i].ops[i2].planet.full == planet.full) {
+            if (operations[i].ops[i2].planet.full == op.planet.full) {
               return [i, i2];
             }
           }
@@ -54,7 +54,8 @@ angular.module('SWmanagerApp')
     /*** INIT ***/
 
     function resetCurrent() {
-      current = {name: "unknown", description:"", ops: []};
+      current = {name: "unknown", description: "", ops: []};
+      saveCurrent();
     }
 
     function initCurrent() {
@@ -85,13 +86,33 @@ angular.module('SWmanagerApp')
       }
     }
 
+    function compareName(op1, op2) {
+      return op1.name > op2.name;
+    }
+
+    function comparePosition(op1, op2) {
+      if (op1.planet.g == op2.planet.g) {
+        if (op1.planet.s == op2.planet.s) {
+          return op1.planet.p > op2.planet.p;
+        } else {
+          return op1.planet.s > op2.planet.s;
+        }
+      } else {
+        return op1.planet.g > op2.planet.g;
+      }
+    }
+
     function saveOperations() {
+      operations.sort(compareName);
+      for (var i = 0; i < operations.length; ++i) {
+        operations[i].ops.sort(comparePosition);
+      }
       StorageUtils.write(operationsFile, JSON.stringify(operations));
     }
 
     function saveCurrent() {
+      current.ops.sort(comparePosition);
       StorageUtils.write(currentOpFile, JSON.stringify(current));
-      console.log("after save: ", StorageUtils.read(currentOpFile))
     }
 
     /*** CURRENT MODIFIER **/
@@ -128,7 +149,20 @@ angular.module('SWmanagerApp')
         operations.push(current);
         resetCurrent();
         saveOperations();
+        return true;
+      } else {
+        return false;
       }
+    }
+
+    function removeOpsFrom(operation, source) {
+      for (var i = 0; i < source.ops.length; ++i) {
+        removeFromOperation(operation.name, source.ops[i]);
+      }
+    }
+
+    function addOpsFrom(operation, source) {
+      addOpsToOperation(operation.name, source.ops);
     }
 
     function removeOperation(name) {
@@ -139,8 +173,8 @@ angular.module('SWmanagerApp')
       }
     }
 
-    function removeFromOperation(name, planet) {
-      var pos = planetInOperations(name, planet);
+    function removeFromOperation(name, op) {
+      var pos = planetInOperations(name, op);
 
       if (pos != null) {
         operations[pos[0]].ops.splice(pos[1], 1);
@@ -148,12 +182,23 @@ angular.module('SWmanagerApp')
       }
     }
 
-    function addPlanetsToOperation(name, planets) {
+    function updateOpFromOperation(name, op) {
+      var pos = planetInOperations(name, op);
+
+      if (pos != null) {
+        operations[pos[0]].ops[pos[1]] = op;
+      }
+      saveOperations();
+    }
+
+    function addOpsToOperation(name, ops) {
       var pos = operationInOperations(name);
 
       if (pos != -1) {
-        for (var i = 0; i < planets.length; ++i) {
-          operations[pos].ops.push(planets[i]);
+        for (var i = 0; i < ops.length; ++i) {
+          if (planetInOperations(name, ops[i]) == null) {
+            operations[pos].ops.push(ops[i]);
+          }
         }
         saveOperations();
       }
@@ -225,26 +270,50 @@ angular.module('SWmanagerApp')
       init: function () {
         init();
       },
-      removeFromOperation: function (name, planet) {
-        init();
-        removeFromOperation(name, planet);
+      /** OPERATIONS **/
+      removeOpsFrom: function (operation, source) {
+        removeOpsFrom(operation, source);
       },
-      addPlanetsToOperation: function (name, planets) {
-        init();
-        addPlanetsToOperation(name, planets);
-      },
-      createOperation: function () {
-        init();
-        saveCurrentToOperations();
-      },
-      removeOperation: function (name) {
-        init();
-        removeOperation(name);
+      addOpsFrom: function (operation, source) {
+        addOpsFrom(operation, source);
       },
       transformOperation: function (name) {
         init();
         return transformOperation(name);
       },
+      updateOpFromOperation: function (name, op) {
+        updateOpFromOperation(name, op);
+      },
+      removeFromOperation: function (name, op) {
+        init();
+        removeFromOperation(name, op);
+      },
+      addOpsToOperation: function (name, ops) {
+        init();
+        addOpsToOperation(name, ops);
+      },
+      createOperation: function () {
+        init();
+        return saveCurrentToOperations();
+      },
+      removeOperation: function (name) {
+        init();
+        removeOperation(name);
+      },
+      updateOperationConf: function (name, currentOp) {
+        var pos = operationInOperations(name);
+
+        if (pos != -1) {
+          if (currentOp.name) {
+            operations[pos].name = currentOp.name;
+          }
+          if (currentOp.description) {
+            operations[pos].description = currentOp.description;
+          }
+        }
+        saveOperations();
+      },
+      /** CURRENT **/
       transformCurrent: function () {
         init();
         return transformCurrent();
@@ -261,7 +330,7 @@ angular.module('SWmanagerApp')
         init();
         updateOpFromCurrent(op);
       },
-      updateCurrentConf: function(currentOp) {
+      updateCurrentConf: function (currentOp) {
         if (currentOp.name) {
           current.name = currentOp.name;
         }

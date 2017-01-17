@@ -13,6 +13,20 @@ angular.module('SWmanagerApp')
       ReplaceAll: function (str, find, replace) {
         find = find.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
         return str.replace(new RegExp(find, 'g'), replace);
+      },
+      beautyNumber: function(number) {
+        var str = number.toString();
+        var count = 0;
+
+        for (var i = str.length - 1; i > 0; --i) {
+          ++count;
+          if (count == 3) {
+            str = str.slice(0, i) +  "." + str.slice(i);
+            count = 0;
+          }
+
+        }
+        return str;
       }
     }
   })

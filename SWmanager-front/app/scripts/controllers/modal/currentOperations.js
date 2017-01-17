@@ -19,11 +19,11 @@ angular.module('SWmanagerApp')
     $scope.changeDesc = false;
 
     /*** PAGINATION ***/
-    $scope.isInCurrentPage = function(index) {
+    $scope.isInCurrentPage = function (index) {
       return (index >= ($scope.currentPage * $scope.itemsPerPage) && index < ($scope.currentPage * $scope.itemsPerPage) + $scope.itemsPerPage);
     };
 
-    $scope.numberPages = function() {
+    $scope.numberPages = function () {
       return ($scope.currentOperation.ops.length / $scope.itemsPerPage);
     };
 
@@ -40,35 +40,54 @@ angular.module('SWmanagerApp')
     };
 
     /*** FOCUS MODIFICATION ***/
-    $scope.setFocus = function(index) {
+    $scope.setFocus = function (index) {
       $scope.focused = index
     };
 
-    $scope.saveOp = function(op) {
+    $scope.saveOp = function (op) {
       OperationManager.updateOpFromCurrent(op);
       $scope.setFocus(-1);
     };
 
-    $scope.removeOp = function(op) {
+    $scope.removeOp = function (op) {
       OperationManager.removeFromCurrent(op);
       $scope.currentOperation = OperationManager.getCurrent();
     };
 
     /*** TRANSFORM ***/
-    $scope.transformToScript = function() {
+    $scope.transformToScript = function () {
       $scope.script = OperationManager.transformCurrent();
     };
 
-    $scope.removeAll = function() {
+    $scope.removeAll = function () {
       OperationManager.clearCurrent();
     };
 
-    $scope.saveCurrent = function() {
-      OperationManager.createOperation();
-      $scope.initCurrentOperation();
+    $scope.saveCurrent = function () {
+      if (!OperationManager.createOperation()) {
+        swal({
+          title: "An operation exist with the same name",
+          text: "add the planets to this operation ?",
+          type: "warning",
+          showCancelButton: true,
+          closeOnConfirm: true,
+          closeOnCancel: true,
+          confirmButtonColor: "F8BB86",
+          cancelButtonText: "No",
+          confirmButtonText: "Yes"
+        }, function (motif) {
+          if (motif === false) return false;
+          OperationManager.addOpsToOperation($scope.currentOperation.name, $scope.currentOperation.ops);
+          OperationManager.clearCurrent();
+          $scope.initCurrentOperation();
+        });
+      }
+      else {
+        $scope.initCurrentOperation();
+      }
     };
 
-    $scope.updateCurrentConf = function(mode) {
+    $scope.updateCurrentConf = function (mode) {
       var value = {};
       if (mode == 1) {
         value.name = $scope.currentOperation.name;
@@ -82,12 +101,12 @@ angular.module('SWmanagerApp')
     };
 
     /*** ACTION ***/
-    $scope.quit = function() {
+    $scope.quit = function () {
       $uibModalInstance.dismiss('cancel');
     };
 
     /*** INIT ***/
-    $scope.initCurrentOperation = function() {
+    $scope.initCurrentOperation = function () {
       $scope.currentPage = 0;
       $scope.currentOperation = OperationManager.getCurrent();
     };

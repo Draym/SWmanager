@@ -21,7 +21,11 @@ angular.module('SWmanagerApp')
     };
 
     $scope.openOperations = function() {
-      $location.path("/operations")
+      var modalInstance = $uibModal.open({
+        templateUrl: 'views/modal/listOperations.html',
+        controller: 'ListOperationsModalCtrl',
+        size: 'lg'
+      });
     };
 
     $scope.disconnect = function() {

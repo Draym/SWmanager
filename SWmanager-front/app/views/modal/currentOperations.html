@@ -7,7 +7,7 @@
 <div class="modal-body" style="display: flex">
   <div class="col-md-12">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-7">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4>Operation
@@ -18,8 +18,8 @@
             </h4>
           </div>
           <div class="panel-body">
-            <div class="row">
-              <div class="col-md-6">
+            <div class="col-md-6">
+              <div class="row">
                 <div class="form-inline" style="padding-left: 5px; margin-bottom: 10px">
                   <label for="name">Name: </label>
                   <input type="text" name="path" id="name" class="form-control"
@@ -32,8 +32,8 @@
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-md-6">
+            <div class="col-md-6">
+              <div class="row">
                 <div class="form-inline" style="padding-left: 5px; margin-bottom: 10px">
                   <label for="description">Description : </label>
                   <input type="text" name="path" id="description" class="form-control"
@@ -49,14 +49,31 @@
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-7">
+      <div class="col-md-5">
         <!-- PLANETS -->
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h4>Planets
+            <h4>Script
+              <button class="btn btn-success pull-right" data-ng-click="transformToScript()"
+                      style="margin-left: 1px">
+                <i class="fa fa-terminal" aria-hidden="true"></i>
+              </button>
+            </h4>
+          </div>
+          <div class="panel-body">
+            <textarea class="form-control" style="resize: vertical" data-ng-model="script"
+                      data-ng-show="script"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <!-- PLANETS -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4>Planets : {{currentOperation.ops.length}}
               <button class="btn btn-danger pull-right" data-ng-click="removeAll()"
                       style="margin-left: 1px">
                 <i class="fa fa-trash" aria-hidden="true"></i>
@@ -72,18 +89,36 @@
                   <td class="col-md-1">{{op.planet.g}}</td>
                   <td class="col-md-1">{{op.planet.s}}</td>
                   <td class="col-md-1">{{op.planet.p}}</td>
-                  <td class="col-md-7" data-ng-click="setFocus($index)">
+                  <td class="col-md-2" data-ng-click="setFocus($index)">
+                    <div data-ng-if="focused == $index">
+                      <form role="form" data-ng-submit="saveOp(op)">
+                        <input type="number" class="form-control"
+                               data-ng-model="op.nbConv" placeholder="nbConv">
+                      </form>
+                    </div>
+                    <div data-ng-if="focused != $index">{{op.nbConv}}</div>
+                  </td>
+                  <td class="col-md-2" data-ng-click="setFocus($index)">
+                    <div data-ng-if="focused == $index">
+                      <form role="form" data-ng-submit="saveOp(op)">
+                        <input type="number" class="form-control"
+                               data-ng-model="op.nbFou" placeholder="dnbFou">
+                      </form>
+                    </div>
+                    <div data-ng-if="focused != $index">{{op.nbFou}}</div>
+                  </td>
+                  <td class="col-md-4" data-ng-click="setFocus($index)">
                     <div data-ng-if="focused == $index">
                       <form role="form" data-ng-submit="saveOp(op)">
                         <input type="text" class="form-control"
-                               data-ng-model="op.planet.description" placeholder="description">
+                               data-ng-model="op.description" placeholder="description">
                       </form>
                     </div>
-                    <div data-ng-if="focused != $index">{{op.planet.description}}</div>
+                    <div data-ng-if="focused != $index">{{op.description}}</div>
                   </td>
-                  <td class="col-md-1">
-                    <i class="fa fa-remove pull-right" aria-hidden="true" data-ng-click="removeOp(op)"
-                       style="color: #c9302c"></i></td>
+                  <td class="col-md-1" data-ng-click="removeOp(op)">
+                    <i class="fa fa-remove pull-right" aria-hidden="true"
+                       style="color: #c9302c; margin-right: 7px;"></i></td>
                 </tr>
                 </tbody>
               </table>
@@ -105,23 +140,6 @@
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-5">
-        <!-- PLANETS -->
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4>Script
-              <button class="btn btn-success pull-right" data-ng-click="transformToScript()"
-                      style="margin-left: 1px">
-                <i class="fa fa-terminal" aria-hidden="true"></i>
-              </button>
-            </h4>
-          </div>
-          <div class="panel-body">
-            <textarea class="form-control" style="height: 391px; resize: vertical" data-ng-model="script"
-                      data-ng-show="script"></textarea>
           </div>
         </div>
       </div>

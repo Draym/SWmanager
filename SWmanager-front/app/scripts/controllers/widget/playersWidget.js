@@ -9,7 +9,7 @@
  * Controller of the SWmanagerApp
  */
 angular.module('SWmanagerApp')
-  .controller('PlayersWidgetCtrl', function ($scope, $timeout, $uibModal, toaster, SubmitResult, RequestAPI, User, CloneUtilsCustom) {
+  .controller('PlayersWidgetCtrl', function ($scope, $timeout, $uibModal, toaster, SubmitResult, RequestAPI, User, CloneUtilsCustom, StringUtilsCustom) {
 
     $scope.isBusy = false;
     $scope.sortByPseudoASC = false;
@@ -18,6 +18,13 @@ angular.module('SWmanagerApp')
     $scope.itemsPerPage = 10;
     $scope.pagedItems = [];
     $scope.currentPage = 0;
+    $scope.currentSortScore = "total";
+    $scope.sortScore = ["total", "fleet", "building", "defense"];
+    $scope.sortByScoreMode = true;
+
+    $scope.beautyNumber = function (number) {
+      return StringUtilsCustom.beautyNumber(number);
+    };
 
     /*** PAGINATION ***/
     $scope.groupToPages = function () {
@@ -25,7 +32,7 @@ angular.module('SWmanagerApp')
 
       for (var i = 0; i < $scope.players.length; i++) {
         if (i % $scope.itemsPerPage === 0) {
-          $scope.pagedItems[Math.floor(i / $scope.itemsPerPage)] = [ $scope.players[i] ];
+          $scope.pagedItems[Math.floor(i / $scope.itemsPerPage)] = [$scope.players[i]];
         } else {
           $scope.pagedItems[Math.floor(i / $scope.itemsPerPage)].push($scope.players[i]);
         }
@@ -43,7 +50,7 @@ angular.module('SWmanagerApp')
         ret.push(-1);
       }
       for (var i = 0; i < max; i++) {
-          ret.push(start + i);
+        ret.push(start + i);
       }
       if (start < (end / 2)) {
         ret.push(-2);
@@ -51,11 +58,11 @@ angular.module('SWmanagerApp')
       return ret;
     };
 
-    $scope.lastPage = function() {
+    $scope.lastPage = function () {
       return $scope.currentPage == $scope.pagedItems.length - 1
     };
 
-    $scope.firstPage = function() {
+    $scope.firstPage = function () {
       return $scope.currentPage == 0;
     };
 
@@ -82,16 +89,49 @@ angular.module('SWmanagerApp')
     function comparePseudoASC(player1, player2) {
       return player1.pseudo > player2.pseudo;
     }
+
     function comparePseudoDESC(player1, player2) {
       return player1.pseudo < player2.pseudo;
     }
 
-    function compareScore(player1, player2) {
+    function compareScoreTotal(player1, player2) {
+      if (!player1.score.total) {
+        return true;
+      } else if (!player2.score.total) {
+        return false;
+      }
       return player1.score.total < player2.score.total;
     }
 
+    function compareScoreBuilding(player1, player2) {
+      if (!player1.score.building) {
+        return true;
+      } else if (!player2.score.building) {
+        return false;
+      }
+      return player1.score.building < player2.score.building;
+    }
+
+    function compareScoreFleet(player1, player2) {
+      if (!player1.score.fleet) {
+        return true;
+      } else if (!player2.score.fleet) {
+        return false;
+      }
+      return player1.score.fleet < player2.score.fleet;
+    }
+
+    function compareScoreDefense(player1, player2) {
+      if (!player1.score.defense) {
+        return true;
+      } else if (!player2.score.defense) {
+        return false;
+      }
+      return player1.score.defense < player2.score.defense;
+    }
+
     /*** PARSER ***/
-    var parseByPseudo = function() {
+    var parseByPseudo = function () {
       if ($scope.searchPlayer && $scope.searchPlayer != "") {
         for (var i = 0; i < $scope.players.length; ++i) {
           if (!$scope.players[i].pseudo.toLowerCase().includes($scope.searchPlayer.toLowerCase())) {
@@ -116,8 +156,14 @@ angular.module('SWmanagerApp')
         $scope.players.sort(comparePseudoASC);
       } else if ($scope.sortByPseudoDESC) {
         $scope.players.sort(comparePseudoDESC);
+      } else if ($scope.currentSortScore == "fleet") {
+        $scope.players.sort(compareScoreFleet);
+      } else if ($scope.currentSortScore == "building") {
+        $scope.players.sort(compareScoreBuilding);
+      }  else if ($scope.currentSortScore == "defense") {
+        $scope.players.sort(compareScoreDefense);
       } else {
-        $scope.players.sort(compareScore);
+        $scope.players.sort(compareScoreTotal);
       }
     };
 
@@ -144,21 +190,24 @@ angular.module('SWmanagerApp')
       });
     };
 
-    $scope.sortByScore = function() {
+    $scope.sortByScore = function () {
       $scope.sortByPseudoDESC = false;
       $scope.sortByPseudoASC = false;
+      $scope.sortByScoreMode = true;
       $scope.parseUnparsedPlayers();
     };
 
-    $scope.sortByASC = function() {
+    $scope.sortByASC = function () {
       $scope.sortByPseudoASC = true;
       $scope.sortByPseudoDESC = false;
+      $scope.sortByScoreMode = false;
       $scope.parseUnparsedPlayers();
     };
 
-    $scope.sortByDESC = function() {
+    $scope.sortByDESC = function () {
       $scope.sortByPseudoASC = false;
       $scope.sortByPseudoDESC = true;
+      $scope.sortByScoreMode = false;
       $scope.parseUnparsedPlayers();
     };
 
@@ -167,7 +216,7 @@ angular.module('SWmanagerApp')
       $scope.isBusy = true;
       RequestAPI.GET("/player/all", SubmitResult.submitSuccess(function (response) {
           $scope.unparsedPlayers = response.data.players;
-          $scope.unparsedPlayers.sort(compareScore);
+          $scope.unparsedPlayers.sort(compareScoreTotal);
           for (var i = 0; i < $scope.unparsedPlayers.length; ++i) {
             $scope.unparsedPlayers[i].index = i;
           }
