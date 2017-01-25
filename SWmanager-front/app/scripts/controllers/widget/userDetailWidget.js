@@ -9,7 +9,7 @@
  * Controller of the SWmanagerApp
  */
 angular.module('SWmanagerApp')
-  .controller('UserDetailWidgetCtrl', function ($scope, $location, $uibModal, User) {
+  .controller('UserDetailWidgetCtrl', function ($scope, $location, $uibModal, User, StringUtilsCustom) {
 
     /*** FUNCTION ***/
     $scope.openCurrentModal = function () {
@@ -36,6 +36,10 @@ angular.module('SWmanagerApp')
 
     $scope.initUserDetail = function() {
       $scope.user = User.getPlayer();
+    };
+
+    $scope.beautyNumber = function (number) {
+      return StringUtilsCustom.beautyNumber(number);
     };
 
     $scope.initUserDetail();
