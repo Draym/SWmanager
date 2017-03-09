@@ -162,6 +162,7 @@ angular.module('SWmanagerApp')
           type: $scope.choice.type,
           inactif: $scope.choice.inactif,
           level: $scope.choice.level,
+          rank: $scope.choice.rank,
           planetId: $scope.choice.planet.full,
           minDist: $scope.choice.minDist,
           maxDist: $scope.choice.maxDist,

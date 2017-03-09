@@ -119,6 +119,34 @@
             </div>
             <div class="modal-footer"></div>
           </div>
+          <div class="row col-md-12" data-ng-if="choice.level == 'null'">
+            <div class="modal-header" style="border-bottom: none">Select the rank</div>
+            <div class="modal-body" style="display: flex">
+              <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-default btn-noEvent"
+                       data-ng-click="choice.rank = 'null'">
+                  <input type="radio" name="options" autocomplete="off"> Player Rank ?
+                </label>
+                <label class="btn btn-danger"
+                       data-ng-click="choice.rank = '10'">
+                  <input type="radio" name="options" autocomplete="off"> 20
+                </label>
+                <label class="btn btn-warning"
+                       data-ng-click="choice.rank = '40'">
+                  <input type="radio" name="options" autocomplete="off"> 50
+                </label>
+                <label class="btn btn-info"
+                       data-ng-click="choice.rank = '70'">
+                  <input type="radio" name="options" autocomplete="off"> 80
+                </label>
+                <label class="btn btn-grey"
+                       data-ng-click="choice.rank = '100'">
+                  <input type="radio" name="options" autocomplete="off"> 130
+                </label>
+              </div>
+            </div>
+            <div class="modal-footer"></div>
+          </div>
         </div>
         <div class="panel-footer">
           <button class="btn btn-info" data-ng-disabled="!isSearchFormValid() || isBusy"

@@ -143,6 +143,7 @@ function createPlayers() {
             planets: transforPlanetsPosition(dataBase.players[key][0]),
             moons: transforPlanetsPosition(dataBase.players[key][1]),
             score: {},
+            rank: {},
             inactif: false,
             type: ""
         });
@@ -178,6 +179,39 @@ function addScoreToPlayer() {
                 players[i].type = "fleet";
             } else {
                 players[i].type = 'defense';
+            }
+        }
+    }
+}
+
+function addRankToPlayer() {
+    for (var key in dataBase.score.players) {
+        var i = getPlayerPosByLogin(key);
+
+        if (i != -1) {
+            players[i].rank.total = 1;
+            players[i].rank.building = 1;
+            players[i].rank.fleet = 1;
+            players[i].rank.research = 1;
+            players[i].rank.defense = 1;
+            for (var i2 = 0; i2 < players.length; ++i2) {
+                if (i != i2) {
+                    if (players[i2].score.total > players[i].score.total) {
+                        players[i].rank.total += 1;
+                    }
+                    if (players[i2].score.building > players[i].score.building) {
+                        players[i].rank.building += 1;
+                    }
+                    if (players[i2].score.fleet > players[i].score.fleet) {
+                        players[i].rank.fleet += 1;
+                    }
+                    if (players[i2].score.research > players[i].score.research) {
+                        players[i].rank.research += 1;
+                    }
+                    if (players[i2].score.defense > players[i].score.defense) {
+                        players[i].rank.defense += 1;
+                    }
+                }
             }
         }
     }
@@ -256,6 +290,7 @@ function parseCollectedData(db, callbacks) {
     createPlayers();
     createPlanets();
     addScoreToPlayer();
+    addRankToPlayer();
     addInactifStatusToPlayer();
     Log.log("[server][DONE] parse Data", Log.colors.FG_MAGENTA);
     launchCallback(db, callbacks);

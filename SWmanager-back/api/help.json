@@ -25,6 +25,13 @@
       "defense": 0,
       "fleet": 0
     },
+    "rank": {
+      "total": 0,
+      "research": 0,
+      "building": 0,
+      "defense": 0,
+      "fleet": 0
+    },
     "inactif": false,
     "type": ""
   },

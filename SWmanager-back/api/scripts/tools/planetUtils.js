@@ -43,18 +43,34 @@ function getPlayerLevel(player, type, requirements) {
     return 'null';
 }
 
+function checkPlayerScore(player, type, requirements) {
+    if (requirements.rank == 'null') {
+        return getPlayerLevel(player, type, requirements) == requirements.level;
+    } else {
+        if (type == 'null') {
+            return player.rank.total < parseInt(requirements.rank);
+        } else if (type == 'building') {
+            return player.rank.building < parseInt(requirements.rank);
+        } else if (type == 'fleet') {
+            return player.rank.fleet < parseInt(requirements.rank);
+        } else if (type == 'defense') {
+            return player.rank.defense < parseInt(requirements.rank);
+        }
+    }
+}
+
 exports.isPlanetAvailable = function(planet, requirements) {
-    if (requirements.type == 'null' && requirements.level == 'null') {
+    if (requirements.type == 'null' && requirements.level == 'null' && requirements.rank == 'null') {
         return true;
     }
     else if (requirements.type == 'null') {
-        return getPlayerLevel(planet.player, 'null', requirements) == requirements.level;
+        return checkPlayerScore(planet.player, 'null', requirements);
     }
     else if (planet.player.type == requirements.type) {
-        if (requirements.level == 'null') {
+        if (requirements.level == 'null' && requirements.rank == 'null') {
             return true;
         }
-        return getPlayerLevel(planet.player, requirements.type, requirements) == requirements.level;
+        return checkPlayerScore(planet.player, requirements.type, requirements);
     }
     return false;
 };
