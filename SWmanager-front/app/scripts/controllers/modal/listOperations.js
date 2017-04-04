@@ -75,7 +75,6 @@ angular.module('SWmanagerApp')
     };
 
     $scope.addOpsFrom = function (operation, source) {
-      console.log($scope.selectAdd || operation.name == source.name)
       if (operation.name == "select") {
         return;
       }

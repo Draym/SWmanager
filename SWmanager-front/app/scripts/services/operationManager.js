@@ -61,7 +61,6 @@ angular.module('SWmanagerApp')
     function initCurrent() {
       if (needInit) {
         var value = StorageUtils.read(currentOpFile);
-        console.log(value);
         if (value) {
           current = JSON.parse(value);
         }
@@ -71,7 +70,6 @@ angular.module('SWmanagerApp')
     function initOperations() {
       if (needInit) {
         var value = StorageUtils.read(operationsFile);
-        console.log(value);
         if (value) {
           operations = JSON.parse(value);
         }

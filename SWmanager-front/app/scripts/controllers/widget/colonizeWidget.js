@@ -87,7 +87,6 @@ angular.module('SWmanagerApp')
       RequestAPI.GET("/colonize/findBest", SubmitResult.submitSuccess(function (response) {
           $scope.researchPlanets = response.data.planets;
           $scope.resultAvailable = true;
-          console.log($scope.researchPlanets);
           $scope.isBusy = false;
         }),
         SubmitResult.submitFailure(function () {
