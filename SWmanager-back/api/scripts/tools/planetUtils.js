@@ -48,13 +48,13 @@ function checkPlayerScore(player, type, requirements) {
         return getPlayerLevel(player, type, requirements) == requirements.level;
     } else {
         if (type == 'null') {
-            return player.rank.total < parseInt(requirements.rank);
+            return player.rank.total <= parseInt(requirements.rank);
         } else if (type == 'building') {
-            return player.rank.building < parseInt(requirements.rank);
+            return player.rank.building <= parseInt(requirements.rank);
         } else if (type == 'fleet') {
-            return player.rank.fleet < parseInt(requirements.rank);
+            return player.rank.fleet <= parseInt(requirements.rank);
         } else if (type == 'defense') {
-            return player.rank.defense < parseInt(requirements.rank);
+            return player.rank.defense <= parseInt(requirements.rank);
         }
     }
 }

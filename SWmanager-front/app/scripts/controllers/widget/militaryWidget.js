@@ -14,7 +14,7 @@ angular.module('SWmanagerApp')
     $scope.isBusy = false;
     $scope.resultAvailable = false;
     $scope.mode = 0;
-    $scope.rankCustomON = false;
+    $scope.rankCustom = {mode : false, value : null};
 
     $scope.choice = {
       planet: null,

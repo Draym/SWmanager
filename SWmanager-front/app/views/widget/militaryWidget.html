@@ -128,31 +128,32 @@
             <div class="modal-body" style="display: flex">
               <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-default btn-noEvent"
-                       data-ng-click="choice.rank = 'null';rankCustomON = false">
+                       data-ng-click="choice.rank = 'null';rankCustom.mode = false">
                   <input type="radio" name="options" autocomplete="off"> Player Rank ?
                 </label>
                 <label class="btn btn-danger"
-                       data-ng-click="choice.rank = '10';rankCustomON = false">
+                       data-ng-click="choice.rank = '10';rankCustom.mode = false">
                   <input type="radio" name="options" autocomplete="off"> 10
                 </label>
                 <label class="btn btn-warning"
-                       data-ng-click="choice.rank = '40';rankCustomON = false">
+                       data-ng-click="choice.rank = '40';rankCustom.mode = false">
                   <input type="radio" name="options" autocomplete="off"> 40
                 </label>
                 <label class="btn btn-info"
-                       data-ng-click="choice.rank = '70';rankCustomON = false">
+                       data-ng-click="choice.rank = '70';rankCustom.mode = false">
                   <input type="radio" name="options" autocomplete="off"> 70
                 </label>
                 <label class="btn btn-grey"
-                       data-ng-click="choice.rank = '100';rankCustomON = false">
+                       data-ng-click="choice.rank = '100';rankCustom.mode = false">
                   <input type="radio" name="options" autocomplete="off"> 100
                 </label>
                 <label class="btn btn-default"
-                       data-ng-click="choice.rank = rankCustom;rankCustomON = true">
+                       data-ng-click="rankCustom.mode = true">
                   <input type="radio" name="options" autocomplete="off"> Custom
                 </label>
                 <label>
-                <input data-ng-show="rankCustomON" class="form-control" type="number" name="options" data-ng-model="rankCustom" autocomplete="off">
+                  <input data-ng-show="rankCustom.mode" class="form-control" type="text" name="options"
+                         data-ng-model="rankCustom.value" data-ng-change="choice.rank=rankCustom.value" autocomplete="off">
                 </label>
               </div>
             </div>
