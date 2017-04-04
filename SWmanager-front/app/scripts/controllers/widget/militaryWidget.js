@@ -14,8 +14,18 @@ angular.module('SWmanagerApp')
     $scope.isBusy = false;
     $scope.resultAvailable = false;
     $scope.mode = 0;
+    $scope.rankCustomON = false;
 
-    $scope.choice = {planet: null, type: 'null', level: 'null', inactif: 'null', minDist: 0, maxDist: null};
+    $scope.choice = {
+      planet: null,
+      type: 'null',
+      level: 'null',
+      inactif: 'null',
+      bot: 'null',
+      minDist: 0,
+      maxDist: null,
+      rank: 'null'
+    };
 
     $scope.itemsPerPage = 10;
     $scope.pagedItems = [];
@@ -108,7 +118,23 @@ angular.module('SWmanagerApp')
 
     /*** FUNCTIONS ***/
 
-    $scope.addToCurrent = function() {
+    $scope.selectPlayerStatus = function (status) {
+      if (status == 'actif') {
+        $scope.choice.inactif = 'false';
+        $scope.choice.bot = 'false';
+      } else if (status == 'bot') {
+        $scope.choice.inactif = 'false';
+        $scope.choice.bot = 'true';
+      } else if (status == 'inactif') {
+        $scope.choice.inactif = 'true';
+        $scope.choice.bot = 'false';
+      } else if (status == 'null') {
+        $scope.choice.inactif = 'null';
+        $scope.choice.bot = 'null';
+      }
+    };
+
+    $scope.addToCurrent = function () {
       var values = [];
 
       for (var i = 0; i < $scope.extractedPlanets.length; ++i) {
@@ -148,8 +174,13 @@ angular.module('SWmanagerApp')
         && $scope.choice.minDist >= 0 && $scope.choice.maxDist > 0;
     };
 
+    $scope.validateDataBeforeSend = function () {
+      $scope.choice.rank = ($scope.choice.rank ? $scope.choice.rank : 'null');
+    };
+
     $scope.doResearch = function () {
       $scope.isBusy = true;
+      $scope.validateDataBeforeSend();
       RequestAPI.GET("/military/findBestTargets", SubmitResult.submitSuccess(function (response) {
           $scope.researchPlanets = response.data.planets;
           $scope.resultAvailable = true;
@@ -161,6 +192,7 @@ angular.module('SWmanagerApp')
         }), {
           type: $scope.choice.type,
           inactif: $scope.choice.inactif,
+          bot: $scope.choice.bot,
           level: $scope.choice.level,
           rank: $scope.choice.rank,
           planetId: $scope.choice.planet.full,

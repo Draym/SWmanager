@@ -14,6 +14,7 @@ angular.module('SWmanagerApp')
     $scope.isBusy = false;
     $scope.sortByPseudoASC = false;
     $scope.sortByPseudoDESC = false;
+    $scope.actifMode = true;
     $scope.players = [];
     $scope.itemsPerPage = 10;
     $scope.pagedItems = [];
@@ -160,7 +161,7 @@ angular.module('SWmanagerApp')
         $scope.players.sort(compareScoreFleet);
       } else if ($scope.currentSortScore == "building") {
         $scope.players.sort(compareScoreBuilding);
-      }  else if ($scope.currentSortScore == "defense") {
+      } else if ($scope.currentSortScore == "defense") {
         $scope.players.sort(compareScoreDefense);
       } else {
         $scope.players.sort(compareScoreTotal);
@@ -168,6 +169,11 @@ angular.module('SWmanagerApp')
     };
 
     /*** FUNCTION ***/
+
+    $scope.changeActifMode = function (mode) {
+      $scope.actifMode = mode;
+      $scope.initPlayers();
+    };
 
     $scope.detailPlayer = function (player) {
       var modalInstance = $uibModal.open({
@@ -215,7 +221,13 @@ angular.module('SWmanagerApp')
     $scope.loadPlayers = function () {
       $scope.isBusy = true;
       RequestAPI.GET("/player/all", SubmitResult.submitSuccess(function (response) {
-          $scope.unparsedPlayers = response.data.players;
+          $scope.unparsedPlayers = [];
+
+          for (var i = 0; i < response.data.players.length; ++i) {
+            if (response.data.players[i].bot != $scope.actifMode) {
+              $scope.unparsedPlayers.push(response.data.players[i]);
+            }
+          }
           $scope.unparsedPlayers.sort(compareScoreTotal);
           for (var i = 0; i < $scope.unparsedPlayers.length; ++i) {
             $scope.unparsedPlayers[i].index = i;
@@ -229,6 +241,7 @@ angular.module('SWmanagerApp')
     };
 
     $scope.initPlayers = function () {
+      $scope.currentPage = 0;
       $scope.loadPlayers();
     };
 

@@ -33,6 +33,7 @@
       "fleet": 0
     },
     "inactif": false,
+    "bot": false,
     "type": ""
   },
   /** PLANET **/

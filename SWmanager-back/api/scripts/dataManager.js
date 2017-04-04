@@ -107,6 +107,9 @@ function collectScore(db, callbacks) {
 
             dataBase.score = {};
             dataBase.score.players = all['1'];
+            for (var key in all['3']) {
+                dataBase.score.players[key] = all['3'][key];
+            }
             dataBase.score.team = all['2'];
             launchCallback(db, callbacks);
         }
@@ -145,6 +148,7 @@ function createPlayers() {
             score: {},
             rank: {},
             inactif: false,
+            bot: (key.indexOf("Bot_") == 0),
             type: ""
         });
     }
@@ -195,7 +199,7 @@ function addRankToPlayer() {
             players[i].rank.research = 1;
             players[i].rank.defense = 1;
             for (var i2 = 0; i2 < players.length; ++i2) {
-                if (i != i2) {
+                if (i != i2 && players[i].bot == players[i2].bot) {
                     if (players[i2].score.total > players[i].score.total) {
                         players[i].rank.total += 1;
                     }

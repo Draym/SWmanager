@@ -17,6 +17,8 @@ function parsePlanetsByRequirements(planets, requirements) {
             && Tools.numberInRange(PlanetUtils.distanceBetweenPlanets(playerPlanet, planets[i]), requirements.minDist, requirements.maxDist)) {
             if (requirements.inactif != 'null' && Tools.isTrue(requirements.inactif) != planets[i].player.inactif) {
                 remove = true;
+            } else if (requirements.bot != 'null' && Tools.isTrue(requirements.bot) != planets[i].player.bot) {
+                remove = true;
             } else if (!PlanetUtils.isPlanetAvailable(planets[i], requirements)) {
                 remove = true;
             }
