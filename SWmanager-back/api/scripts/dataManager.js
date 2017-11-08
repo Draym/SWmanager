@@ -1,7 +1,7 @@
 /**
  * Created by kevin on 03/01/2017.
  */
-
+var path = require('path');
 var fs = require("fs");
 var sqlite3 = require("sqlite3").verbose();
 var Tools = require("./tools/Tools");
@@ -307,11 +307,13 @@ function calculationUtilsData(db, callbacks) {
 }
 
 exports.parseData = function () {
-    var file = "../data/data.db";
+    var file = path.join(__dirname, '..', '..', 'data', 'data.db');
     var exists = fs.existsSync(file);
-    var db = new sqlite3.Database(file);
-    Log.log("[server] DataBase available", Log.colors.FG_CYAN);
     if (exists) {
+        Log.log("[server] DataBase available", Log.colors.FG_CYAN);
+        var db = new sqlite3.Database(file);
         collectGalaxy(db, [collectInactif, collectScore, parseCollectedData, calculationUtilsData]);
+    } else {
+        Log.log("[server] DataBase not found", Log.colors.FG_RED);
     }
 };
