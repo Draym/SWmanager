@@ -201,8 +201,7 @@
 }
 
 .register .container {
-  max-width: 420px;
-!important;
+  max-width: 420px !important;
 }
 
 .register .divider {
