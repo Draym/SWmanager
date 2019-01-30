@@ -1,8 +1,10 @@
 # SWmanager
 
+This a multiple dashboard web-app which help SpacesWars(http://spaceswars.com) players to take future decisions.
+
 -------------------------------------------------------------------------------------------  
 ## Installation:  
--------------------------------------------------------------------------------------------  
+
 Be sure to have NodeJS installed in your computer for using npm.  
 
 -Front Project  
@@ -21,7 +23,7 @@ npm install grunt-cli
 
 -------------------------------------------------------------------------------------------  
 ## Launch:  
--------------------------------------------------------------------------------------------  
+
 
 -Front project  
 cd SWmanager-front  
@@ -36,5 +38,20 @@ nodemon bin/www
 
 -------------------------------------------------------------------------------------------  
 ## Usage:  
--------------------------------------------------------------------------------------------  
 
+
+- Player Dashboard : search players and get their details by selecting one
+<img src="README-images/sw-player.PNG" height="400">
+
+- Colonial Dashboard : data analysis of all the planets actually living per players. It will help you to find the spot you desire in the galaxy
+<img src="README-images/sw-colonial.PNG" height="400">
+
+
+- Military Dashboard : search specific targets by selecting a range of informations
+<img src="README-images/sw-raid.PNG" height="400">
+
+- Operations Center : create operations and add target to it, it will be saved for your next raids. 
+<img src="README-images/sw-operation.PNG" height="400">
+
+- Scripting : It can offer a prewritten script's action which can be used with **Actionaz** (mp for preconfigured scripts), to automatically launch your raids
+<img src="README-images/sw-script.PNG" width="400" align="center">
