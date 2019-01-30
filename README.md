@@ -4,7 +4,7 @@ This a multiple dashboard web-app which help SpacesWars' players to take future 
 
 -------------------------------------------------------------------------------------------  
 ## Installation:  
--------------------------------------------------------------------------------------------  
+
 Be sure to have NodeJS installed in your computer for using npm.  
 
 -Front Project  
@@ -23,7 +23,7 @@ npm install grunt-cli
 
 -------------------------------------------------------------------------------------------  
 ## Launch:  
--------------------------------------------------------------------------------------------  
+
 
 -Front project  
 cd SWmanager-front  
@@ -38,7 +38,7 @@ nodemon bin/www
 
 -------------------------------------------------------------------------------------------  
 ## Usage:  
--------------------------------------------------------------------------------------------  
+
 
 - Player Dashboard : search players and get their details by selecting one
 <img src="ReadMe-images/sw-player.PNG" height="400">
