@@ -1,6 +1,6 @@
 # SWmanager
 
-This a multiple dashboard web-app which help SpacesWars' players to take future decisions.
+This a multiple dashboard web-app which help SpacesWars(http://spaceswars.com/) players to take future decisions.
 
 -------------------------------------------------------------------------------------------  
 ## Installation:  
