@@ -41,17 +41,17 @@ nodemon bin/www
 
 
 - Player Dashboard : search players and get their details by selecting one
-<img src="ReadMe-images/sw-player.PNG" height="400">
+<img src="README-images/sw-player.PNG" height="400">
 
 - Colonial Dashboard : data analysis of all the planets actually living per players. It will help you to find the spot you desire in the galaxy
-<img src="ReadMe-images/sw-colonial.PNG" height="400">
+<img src="README-images/sw-colonial.PNG" height="400">
 
 
 - Military Dashboard : search specific targets by selecting a range of informations
-<img src="ReadMe-images/sw-raid.PNG" height="400">
+<img src="README-images/sw-raid.PNG" height="400">
 
-- Operation Centers : create operations and add target to it, it will be saved for your next raids. 
-<img src="ReadMe-images/sw-operation.PNG" height="400">
+- Operations Center : create operations and add target to it, it will be saved for your next raids. 
+<img src="README-images/sw-operation.PNG" height="400">
 
 - Scripting : It can offer a prewritten script's action which can be used with **Actionaz** (mp for preconfigured scripts), to automatically launch your raids
-<img src="ReadMe-images/sw-script.PNG" width="400" align="center">
+<img src="README-images/sw-script.PNG" width="400" align="center">
