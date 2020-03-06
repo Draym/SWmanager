@@ -3,7 +3,7 @@
 describe('Controller: LoginnavbarwidgetCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('BibalouApp'));
+  beforeEach(module('SWmanagerApp'));
 
   var LoginnavbarwidgetCtrl,
     scope;

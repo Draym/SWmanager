@@ -3,7 +3,7 @@
 describe('Directive: loginNavbarWidget', function () {
 
   // load the directive's module
-  beforeEach(module('BibalouApp'));
+  beforeEach(module('SWmanagerApp'));
 
   var element,
     scope;

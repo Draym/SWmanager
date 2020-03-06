@@ -7,6 +7,7 @@
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
 
+
 module.exports = function (grunt) {
 
   // Time how long tasks take. Can help when optimizing build times
@@ -24,6 +25,9 @@ module.exports = function (grunt) {
     app: require('./bower.json').appPath || 'app',
     dist: 'dist'
   };
+
+
+  var serveStatic = require('serve-static');
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -80,16 +84,16 @@ module.exports = function (grunt) {
           open: true,
           middleware: function (connect) {
             return [
-              connect.static('.tmp'),
+              serveStatic('.tmp'),
               connect().use(
                 '/bower_components',
-                connect.static('./bower_components')
+                serveStatic('./bower_components')
               ),
               connect().use(
                 '/app/styles',
-                connect.static('./app/styles')
+                serveStatic('./app/styles')
               ),
-              connect.static(appConfig.app)
+              serveStatic(appConfig.app)
             ];
           }
         }
@@ -99,13 +103,13 @@ module.exports = function (grunt) {
           port: 9001,
           middleware: function (connect) {
             return [
-              connect.static('.tmp'),
-              connect.static('test'),
+              serveStatic('.tmp'),
+              serveStatic('test'),
               connect().use(
                 '/bower_components',
-                connect.static('./bower_components')
+                serveStatic('./bower_components')
               ),
-              connect.static(appConfig.app)
+              serveStatic(appConfig.app)
             ];
           }
         }
@@ -202,23 +206,23 @@ module.exports = function (grunt) {
     wiredep: {
       app: {
         src: ['<%= yeoman.app %>/index.html'],
-        ignorePath:  /\.\.\//
+        ignorePath: /\.\.\//
       },
       test: {
         devDependencies: true,
         src: '<%= karma.unit.configFile %>',
-        ignorePath:  /\.\.\//,
-        fileTypes:{
+        ignorePath: /\.\.\//,
+        fileTypes: {
           js: {
             block: /(([\s\t]*)\/{2}\s*?bower:\s*?(\S*))(\n|\r|.)*?(\/{2}\s*endbower)/gi,
-              detect: {
-                js: /'(.*\.js)'/gi
-              },
-              replace: {
-                js: '\'{{filePath}}\','
-              }
+            detect: {
+              js: /'(.*\.js)'/gi
+            },
+            replace: {
+              js: '\'{{filePath}}\','
             }
           }
+        }
       }
     },
 
@@ -338,7 +342,7 @@ module.exports = function (grunt) {
     ngtemplates: {
       dist: {
         options: {
-          module: 'BibalouApp',
+          module: 'SWmanagerApp',
           htmlmin: '<%= htmlmin.dist.options %>',
           usemin: 'scripts/scripts.js'
         },
@@ -390,6 +394,11 @@ module.exports = function (grunt) {
         }, {
           expand: true,
           cwd: 'bower_components/bootstrap/dist',
+          src: 'fonts/*',
+          dest: '<%= yeoman.dist %>'
+        }, {
+          expand: true,
+          cwd: 'bower_components/components-font-awesome',
           src: 'fonts/*',
           dest: '<%= yeoman.dist %>'
         }]

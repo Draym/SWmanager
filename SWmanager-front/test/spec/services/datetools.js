@@ -3,7 +3,7 @@
 describe('Service: dateTools', function () {
 
   // load the service's module
-  beforeEach(module('BibalouApp'));
+  beforeEach(module('SWmanagerApp'));
 
   // instantiate service
   var dateTools;

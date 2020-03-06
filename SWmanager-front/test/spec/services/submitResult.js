@@ -3,7 +3,7 @@
 describe('Service: submitResult', function () {
 
   // load the service's module
-  beforeEach(module('BibalouApp'));
+  beforeEach(module('SWmanagerApp'));
 
   // instantiate service
   var submitResult;

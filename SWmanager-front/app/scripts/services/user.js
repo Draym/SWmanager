@@ -16,6 +16,7 @@ angular.module('SWmanagerApp')
 
     var init = function () {
       var token = $cookies.get(idPlayerLogin);
+      console.log(token);
       (token == null ? disconnect() : connect());
     };
 

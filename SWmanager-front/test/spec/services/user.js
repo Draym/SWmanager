@@ -3,7 +3,7 @@
 describe('Service: User', function () {
 
   // load the service's module
-  beforeEach(module('BibalouApp'));
+  beforeEach(module('SWmanagerApp'));
 
   // instantiate service
   var user;
