@@ -1,4 +1,4 @@
-# SWmanager [now online](http://swmanager.draymlab.fr/)
+# SWmanager - [now online](http://swmanager.draymlab.fr/)
 
 This a multiple dashboard web-app which help SpacesWars(http://spaceswars.com) players to take future decisions.
 
