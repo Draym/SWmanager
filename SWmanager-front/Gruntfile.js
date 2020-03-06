@@ -28,7 +28,7 @@ module.exports = function (grunt) {
 
 
   var serveStatic = require('serve-static');
-
+  grunt.loadNpmTasks('grunt-connect-proxy');
   // Define the configuration for all the tasks
   grunt.initConfig({
 
@@ -75,15 +75,41 @@ module.exports = function (grunt) {
     connect: {
       options: {
         port: 9000,
-        // Change this to '0.0.0.0' to access the server from outside.
-        hostname: '0.0.0.0',
-        livereload: 35729
+        hostname: 'localhost',
+        livereload: 35729,
+        middleware: function (connect, options, middlewares) {
+          middlewares.unshift(require('grunt-connect-proxy/lib/utils').proxyRequest);
+          return middlewares;
+        }
       },
+      proxies: [
+        {
+          context: '/api',
+          host: 'localhost',
+          port: 3000,
+          https: false,
+          rewrite: {
+            '^/api': '/api'
+          }
+        }
+      ],
       livereload: {
         options: {
           open: true,
-          middleware: function (connect) {
+          middleware: function (connect, options) {
+            // Setup the proxy
+            var middlewares = [require('grunt-connect-proxy/lib/utils').proxyRequest];
+
+            // Serve static files.
+            options.base.forEach(function(base) {
+              middlewares.push(connect.static(base));
+            });
+
+            // Make directory browse-able.
+            var directory = options.directory || options.base[options.base.length - 1];
+            middlewares.push(connect.directory(directory));
             return [
+              middlewares,
               serveStatic('.tmp'),
               connect().use(
                 '/bower_components',
@@ -438,7 +464,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
-      return grunt.task.run(['build', 'connect:dist:keepalive']);
+      return grunt.task.run(['build','postcss:server', 'connect:dist:keepalive']);
     }
 
     grunt.task.run([
@@ -446,6 +472,7 @@ module.exports = function (grunt) {
       'wiredep',
       'concurrent:server',
       'postcss:server',
+      'configureProxies:server',
       'connect:livereload',
       'watch'
     ]);

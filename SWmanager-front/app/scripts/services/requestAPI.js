@@ -18,7 +18,7 @@ angular.module('SWmanagerApp')
     // Service logic
     // ...
 
-    var api_url = 'http://localhost:3000';
+    var api_url = '/api';
 
     function createParametersUrl(parameters) {
       var url = "";

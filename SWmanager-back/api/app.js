@@ -1,6 +1,5 @@
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -31,7 +30,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 module.exports = app;
 
 app.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', '*');
     /* OPTIONS, PUT, PATCH, DELETE'*/
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
@@ -39,10 +37,10 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use('/player', player);
-app.use('/planet', planet);
-app.use('/colonize', colonize);
-app.use('/military', military);
+app.use('/api/player', player);
+app.use('/api/planet', planet);
+app.use('/api/colonize', colonize);
+app.use('/api/military', military);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
