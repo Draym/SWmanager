@@ -38,18 +38,14 @@ jobs:
 
           - name: Install Dependencies
             working-directory: "SWmanager-front"
-            run: npm ci
-
-          - name: Build 🔧
-            working-directory: "SWmanager-front"
-            run: npm run build
+            run: |
+              npm install
+              bower install
 
           - name: Test 👷
             working-directory: "SWmanager-front"
             run: npm test
 
           - name: Deploy 🚀
-            uses: JamesIves/github-pages-deploy-action@4.1.4
-            with:
-              branch: gh-pages # The branch the action should deploy to.
-              folder: "SWmanager-front/build" # The folder the action should deploy.
+            working-directory: "SWmanager-front"
+            run: grunt gh-pages

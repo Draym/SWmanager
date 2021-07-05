@@ -41,7 +41,10 @@ jobs:
 
       - name: Install Dependencies
         working-directory: SWmanager-front
-        run: npm ci
+        run: |
+          npm install
+          bower install
+
 
       - name: Test 👷
         working-directory: SWmanager-front

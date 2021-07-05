@@ -35,7 +35,6 @@ module.exports = function(config) {
       'bower_components/angular-ui-router/release/angular-ui-router.js',
       'bower_components/AngularJS-Toaster/toaster.js',
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
-      'bower_components/jasny-bootstrap/dist/js/jasny-bootstrap.js',
       'bower_components/angular-file-upload/dist/angular-file-upload.min.js',
       'bower_components/angular-selector/dist/angular-selector.js',
       'bower_components/moment/moment.js',

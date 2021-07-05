@@ -16,6 +16,7 @@ yarn-error.log*
 build/Release
 
 # Dependency directories
+.tmp/
 bower_components/
 node_modules/
 jspm_packages/
