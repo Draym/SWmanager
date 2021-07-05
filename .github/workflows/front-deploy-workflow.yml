@@ -40,7 +40,7 @@ jobs:
             working-directory: "SWmanager-front"
             run: |
               npm install
-              npm install bower
+              npm install -g bower
               bower install
 
 
