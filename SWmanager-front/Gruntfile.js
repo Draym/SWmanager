@@ -29,6 +29,7 @@ module.exports = function (grunt) {
 
   var serveStatic = require('serve-static');
   grunt.loadNpmTasks('grunt-connect-proxy');
+  grunt.loadNpmTasks('grunt-gh-pages');
   // Define the configuration for all the tasks
   grunt.initConfig({
 
@@ -37,11 +38,7 @@ module.exports = function (grunt) {
 
     'gh-pages': {
       options: {
-        base: 'dist',
-        user: {
-          name: 'Draym',
-          email: 'kevin.draym@gmail.com'
-        }
+        base: 'dist'
       },
       src: ['**']
     },
@@ -527,4 +524,6 @@ module.exports = function (grunt) {
     'test',
     'build'
   ]);
+
+  grunt.registerTask ('deploy', ['gh-pages']);
 };

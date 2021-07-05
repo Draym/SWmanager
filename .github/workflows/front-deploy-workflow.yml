@@ -51,4 +51,4 @@ jobs:
 
           - name: Deploy 🚀
             working-directory: "SWmanager-front"
-            run: grunt gh-pages
+            run: grunt deploy
