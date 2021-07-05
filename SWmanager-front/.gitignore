@@ -22,6 +22,7 @@ node_modules/
 jspm_packages/
 
 # Distribution directories
+.grunt/
 dist/
 build/
 
