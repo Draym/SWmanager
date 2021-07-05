@@ -1,0 +1,13 @@
+<!doctype html> <html> <head> <meta charset="utf-8"> <link rel="icon" href="icon.ico"> <title>SW Manager</title> <meta name="description" content="Dashboard application for data management on Spacewars"> <meta name="viewport" content="width=device-width"> <link rel="stylesheet" href="styles/vendor.66f1fd7c.css"> <link rel="stylesheet" href="styles/main.8ae78a93.css"> </head> <body data-ng-app="SWmanagerApp"> <div id="wrapper"> <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0"> <div class="navbar-header"> <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> <a class="navbar-brand" href="#/" left>SWmanager</a> </div> <ul class="nav navbar-top-links navbar-right"> </ul> <div class="navbar-default sidebar" role="navigation"> <div class="sidebar-nav navbar-collapse"> <ul class="nav" id="side-menu"> <li> <div user-detail-widget></div> </li> </ul> </div> <!-- /.sidebar-collapse --> </div> </nav> <toaster-container toaster-options="
+    {'close-button':{ 'toast-warning': true, 'toast-error': false } }"> </toaster-container> <!-- Page Content --> <div id="page-wrapper"> <div ng-view="content"></div> </div> <!-- /#page-wrapper --> <div class="footer"> <div class="container container-head"> <a class="pull-right" href="#/about">About</a> </div> </div> </div> <!-- /#wrapper --> <!---
+<div class="container">
+  <div class="well" ng-view="content"></div>
+</div>--> <!-- Google Analytics: change UA-XXXXX-X to be your site's ID --> <script>!function (A, n, g, u, l, a, r) {
+    A.GoogleAnalyticsObject = l, A[l] = A[l] || function () {
+        (A[l].q = A[l].q || []).push(arguments)
+      }, A[l].l = +new Date, a = n.createElement(g),
+      r = n.getElementsByTagName(g)[0], a.src = u, r.parentNode.insertBefore(a, r)
+  }(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+  ga('create', 'UA-XXXXX-X');
+  ga('send', 'pageview');</script> <script src="scripts/vendor.c8582c54.js"></script> <script src="scripts/scripts.ae89e69e.js"></script> </body> </html>
