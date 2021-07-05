@@ -37,7 +37,11 @@ module.exports = function (grunt) {
 
     'gh-pages': {
       options: {
-        base: 'dist'
+        base: 'dist',
+        user: {
+          name: 'Draym',
+          email: 'kevin.draym@gmail.com'
+        }
       },
       src: ['**']
     },
