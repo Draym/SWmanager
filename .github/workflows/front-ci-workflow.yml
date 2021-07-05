@@ -43,7 +43,7 @@ jobs:
         working-directory: SWmanager-front
         run: |
           npm install
-          bower install
+          bower install --force
 
 
       - name: Test 👷

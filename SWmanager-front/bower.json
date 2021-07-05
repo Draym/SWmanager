@@ -1,6 +1,13 @@
 {
-  "name": "SWmanager",
-  "version": "0.0.0",
+  "name": "sw-manager",
+  "homepage": "https://SWmanager.github.io",
+  "description": "Statistics online tools for SpaceWars game",
+  "author": {
+    "name": "Kevin Andres",
+    "email": "kevin.andres@epitech.eu"
+  },
+  "version": "1.0.0",
+  "private": true,
   "dependencies": {
     "angular": "1.4.14",
     "bootstrap": "^3.2.0",
