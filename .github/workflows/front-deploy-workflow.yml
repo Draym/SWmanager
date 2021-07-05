@@ -37,19 +37,18 @@ jobs:
                 ${{ runner.os }}-
 
           - name: Install Dependencies
-          working-directory: "SWmanager-front"
+            working-directory: "SWmanager-front"
             run: npm ci
 
           - name: Build 🔧
-          working-directory: "SWmanager-front"
+            working-directory: "SWmanager-front"
             run: npm run build
 
           - name: Test 👷
-          working-directory: "SWmanager-front"
+            working-directory: "SWmanager-front"
             run: npm test
 
           - name: Deploy 🚀
-          working-directory: "SWmanager-front"
             uses: JamesIves/github-pages-deploy-action@4.1.4
             with:
               branch: gh-pages # The branch the action should deploy to.
