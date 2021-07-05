@@ -1,4 +1,4 @@
-name: CI
+name: front-CI
 
 on:
   push:
